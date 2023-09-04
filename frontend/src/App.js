@@ -10,6 +10,7 @@ import EstadoCivilListScreen from "./screens/EstadoCivilListScreen";
 import IgrejaListScreen from "./screens/IgrejaListScreen";
 import PessoaListScreen from "./screens/PessoaListScreen";
 import ProfissaoListScreen from "./screens/ProfissaoListScreen";
+import CategoriaDetailsScreen from "./screens/CategoriaDetailsScreen";
 
 function App() {
     return (
@@ -26,6 +27,7 @@ function App() {
                         <Route path="/pessoas" element={<PessoaListScreen />} />
                         <Route path="/profissoes" element={<ProfissaoListScreen />} />
                         <Route path="/login" element={<LoginListScreen />} />
+                        <Route path="/categorias/:id" element={<CategoriaDetailsScreen />} />
 
                     </Routes>
                 </Container>

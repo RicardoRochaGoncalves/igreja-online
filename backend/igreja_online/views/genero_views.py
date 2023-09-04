@@ -21,6 +21,14 @@ def getGeneros(request):
     return Response(serializer.data)
 
 
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def getGenero(request, pk):
+    genero = Genero.objects.get(id=pk)
+    serializer = GeneroSerializer(genero, many=False)
+    return Response(serializer.data)
+
+
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def createGenero(request):

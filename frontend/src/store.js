@@ -2,7 +2,7 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import { generoListReducer, generoDeleteReducer } from "./reducers/generoReducers";
 import { userLoginReducer } from "./reducers/userReducers";
-import { categoriaListReducer, categoriaDeleteReducer } from "./reducers/categoriaReducers";
+import { categoriaListReducer, categoriaDeleteReducer, categoriaDetailsReducer } from "./reducers/categoriaReducers";
 import { enderecoListReducer, enderecoDeleteReducer } from "./reducers/enderecoReducers";
 import { estadoCivilListReducer, estadoCivilDeleteReducer } from "./reducers/estadoCivilReducers";
 import { igrejaListReducer, igrejaDeleteReducer } from "./reducers/igrejaReducers";
@@ -25,6 +25,7 @@ const reducer = combineReducers({
     igrejaDelete: igrejaDeleteReducer,
     pessoaDelete: pessoaDeleteReducer,
     profissaoDelete: profissaoDeleteReducer,
+    categoriaDetails: categoriaDetailsReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

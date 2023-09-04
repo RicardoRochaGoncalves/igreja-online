@@ -5,6 +5,9 @@ import {
     CATEGORIA_DELETE_REQUEST,
     CATEGORIA_DELETE_SUCCESS,
     CATEGORIA_DELETE_FAIL,
+    CATEGORIA_DETAILS_REQUEST,
+    CATEGORIA_DETAILS_SUCCESS,
+    CATEGORIA_DETAILS_FAIL,
 } from "../constants/categoriaConstants";
 
 export const categoriaListReducer = (state = { categorias: [] }, action) => {
@@ -27,6 +30,19 @@ export const categoriaDeleteReducer = (state = {}, action) => {
         case CATEGORIA_DELETE_SUCCESS:
             return { loading: false, success: true };
         case CATEGORIA_DELETE_FAIL:
+            return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+}
+
+export const categoriaDetailsReducer = (state = { categoria: {} }, action) => {
+    switch (action.type) {
+        case CATEGORIA_DETAILS_REQUEST:
+            return { ...state, loading: true };
+        case CATEGORIA_DETAILS_SUCCESS:
+            return { loading: false, categoria: action.payload };
+        case CATEGORIA_DETAILS_FAIL:
             return { loading: false, error: action.payload };
         default:
             return state;

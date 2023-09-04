@@ -16,6 +16,13 @@ def getEstadosCivis(request):
     return Response(serializer.data)
 
 
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def getEstadoCivil(request, pk):
+    estado_civil = EstadoCivil.objects.get(id=pk)
+    serializer = EstadoCivilSerializer(estado_civil, many=False)
+    return Response(serializer.data)
+
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def createEstadoCivil(request):

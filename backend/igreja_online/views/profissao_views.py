@@ -20,6 +20,14 @@ def getProfissoes(request):
     return Response(serializer.data)
 
 
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def getProfissao(request, pk):
+    profissao = Profissao.objects.get(id=pk)
+    serializer = ProfissaoSerializer(profissao, many=False)
+    return Response(serializer.data)
+
+
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def createProfissao(request):

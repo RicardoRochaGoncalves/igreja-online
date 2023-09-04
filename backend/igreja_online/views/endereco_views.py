@@ -15,6 +15,14 @@ def getEnderecos(request):
     return Response(serializer.data)
 
 
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def getEndereco(request, pk):
+    endereco = Endereco.objects.get(id=pk)
+    serializer = EnderecoSerializer(endereco, many=False)
+    return Response(serializer.data)
+
+
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def createEndereco(request):

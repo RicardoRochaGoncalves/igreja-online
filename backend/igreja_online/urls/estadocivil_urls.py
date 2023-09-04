@@ -6,4 +6,5 @@ urlpatterns = [
     path('create/', views.createEstadoCivil, name='estadocivil-create'),
     path('update/<str:pk>/', views.updateEstadoCivil, name='estadocivil-update'),
     path('delete/<str:pk>/', views.deleteEstadoCivil, name='estadocivil-delete'),
+    path('<str:pk>/', views.getEstadoCivil, name='get-estadocivil')
 ]

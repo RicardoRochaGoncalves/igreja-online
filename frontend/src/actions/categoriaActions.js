@@ -5,6 +5,9 @@ import {
     CATEGORIA_DELETE_REQUEST,
     CATEGORIA_DELETE_SUCCESS,
     CATEGORIA_DELETE_FAIL,
+    CATEGORIA_DETAILS_REQUEST,
+    CATEGORIA_DETAILS_SUCCESS,
+    CATEGORIA_DETAILS_FAIL,
 } from "../constants/categoriaConstants";
 import axios from "axios";
 
@@ -55,6 +58,36 @@ export const deleteCategoria = (id) => async (dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: CATEGORIA_DELETE_FAIL,
+            payload:
+                error.response && error.response.data.detail
+                    ? error.response.data.detail
+                    : error.message,
+        });
+    }
+}
+
+export const categoriaDetails = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: CATEGORIA_DETAILS_REQUEST,
+        });
+        const {
+            userLogin: { userInfo },
+        } = getState();
+        const config = {
+            headers: {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+        const {data} = await axios.get(`/api/categorias/${id}/`, config);
+        dispatch({
+            type: CATEGORIA_DETAILS_SUCCESS,
+            payload: data
+        });
+    } catch (error) {
+        dispatch({
+            type: CATEGORIA_DETAILS_FAIL,
             payload:
                 error.response && error.response.data.detail
                     ? error.response.data.detail

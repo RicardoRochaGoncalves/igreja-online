@@ -21,6 +21,14 @@ def getIgrejas(request):
     return Response(serializer.data)
 
 
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def getIgreja(request, pk):
+    igreja = Igreja.objects.get(id=pk)
+    serializer = IgrejaSerializer(igreja, many=False)
+    return Response(serializer.data)
+
+
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def createIgreja(request):

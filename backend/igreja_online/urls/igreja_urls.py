@@ -7,4 +7,5 @@ urlpatterns = [
     path('create/', views.createIgreja, name='igreja-create'),
     path('update/<str:pk>/', views.updateIgreja, name='igreja-update'),
     path('delete/<str:pk>/', views.deleteIgreja, name='igreja-delete'),
+    path('<str:pk>/', views.getIgreja, name='get-igreja')
 ]

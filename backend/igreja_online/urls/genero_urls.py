@@ -6,4 +6,5 @@ urlpatterns = [
     path('create/', views.createGenero, name='genero-create'),
     path('update/<str:pk>/', views.updateGenero, name='genero-update'),
     path('delete/<str:pk>/', views.deleteGenero, name='genero-delete'),
+    path('<str:pk>/', views.getGenero, name='get-genero'),
 ]

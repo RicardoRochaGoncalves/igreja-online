@@ -21,6 +21,14 @@ def getCategorias(request):
     return Response(serializer.data)
 
 
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def getCategoria(request, pk):
+    categoria = Categoria.objects.get(id=pk)
+    serializer = CategoriaSerializer(categoria, many=False)
+    return Response(serializer.data)
+
+
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def createCategoria(request):

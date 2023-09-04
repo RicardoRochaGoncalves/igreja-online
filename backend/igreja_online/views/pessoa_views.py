@@ -21,6 +21,14 @@ def getPessoas(request):
     return Response(serializer.data)
 
 
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def getPessoa(request, pk):
+    pessoa = Pessoa.objects.get(id=pk)
+    serializer = PessoaSerializer(pessoa, many=False)
+    return Response(serializer.data)
+
+
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def createPessoa(request):
