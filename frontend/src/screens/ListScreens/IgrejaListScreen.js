@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listCategorias, deleteCategoria } from "../actions/categoriaActions";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
-import ListComponent from "../components/ListComponent";
+import { listIgrejas, deleteIgreja } from "../../actions/igrejaActions";
+import Loader from "../../components/Loader";
+import Message from "../../components/Message";
+import ListComponent from "../../components/ListComponent";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-function CategoriaListScreen() {
+function IgrejaListScreen() {
     const dispatch = useDispatch();
 
-    const categoriaList = useSelector((state) => state.categoriaList);
-    const { loading, error, categorias } = categoriaList;
+    const igrejaList = useSelector((state) => state.igrejaList);
+    const { loading, error, igrejas } = igrejaList;
 
-    const categoriaDelete = useSelector((state) => state.categoriaDelete);
-    const { success: successDelete } = categoriaDelete;
+    const igrejaDelete = useSelector((state) => state.igrejaDelete);
+    const { success: successDelete } = igrejaDelete;
 
     const userLogin = useSelector((state) => state.userLogin);
 
@@ -23,30 +23,30 @@ function CategoriaListScreen() {
 
     useEffect(() => {
         if (userInfo) {
-            dispatch(listCategorias());
+            dispatch(listIgrejas());
         } else {
             navigate(`/login`);
         }
     }, [dispatch, navigate, successDelete, userInfo]);
     const deleteHandler = (id) => {
-        if (window.confirm("Tem certeza que deseja deletar esta categoria?")) {
-            dispatch(deleteCategoria(id));
+        if (window.confirm("Tem certeza que deseja deletar esta igreja?")) {
+            dispatch(deleteIgreja(id));
         }
-    }; 
+    };
     return (
         <div>
             <div>
                 {userInfo && (
                     <Container>
                         <ListComponent
-                            title="Categorias"
-                            items={categorias}
+                            title="Igrejas"
+                            items={igrejas}
                             onDelete={deleteHandler}
                             loading={loading}
                             error={error}
                             Loader={Loader}
                             Message={Message}
-                            linkUpdate="categorias"
+                            linkUpdate="igrejas"
                         />
                     </Container>
                 )}
@@ -55,4 +55,4 @@ function CategoriaListScreen() {
     );
 }
 
-export default CategoriaListScreen;
+export default IgrejaListScreen;

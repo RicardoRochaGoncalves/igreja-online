@@ -1,20 +1,21 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listIgrejas, deleteIgreja } from "../actions/igrejaActions";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
-import ListComponent from "../components/ListComponent";
-import { Container } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { listPessoas, deletePessoa } from "../../actions/pessoaActions";
+import Loader from "../../components/Loader";
+import Message from "../../components/Message";
+import ListComponent from "../../components/ListComponent";
+import { Container, ListGroup } from "react-bootstrap";
+import { Table, Button, Row, Col } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 
-function IgrejaListScreen() {
+function PessoaListScreen() {
     const dispatch = useDispatch();
 
-    const igrejaList = useSelector((state) => state.igrejaList);
-    const { loading, error, igrejas } = igrejaList;
+    const pessoaList = useSelector((state) => state.pessoaList);
+    const { loading, error, pessoas } = pessoaList;
 
-    const igrejaDelete = useSelector((state) => state.igrejaDelete);
-    const { success: successDelete } = igrejaDelete;
+    const pessoaDelete = useSelector((state) => state.pessoaDelete);
+    const { success: successDelete } = pessoaDelete;
 
     const userLogin = useSelector((state) => state.userLogin);
 
@@ -23,14 +24,14 @@ function IgrejaListScreen() {
 
     useEffect(() => {
         if (userInfo) {
-            dispatch(listIgrejas());
+            dispatch(listPessoas());
         } else {
             navigate(`/login`);
         }
     }, [dispatch, navigate, successDelete, userInfo]);
     const deleteHandler = (id) => {
-        if (window.confirm("Tem certeza que deseja deletar esta igreja?")) {
-            dispatch(deleteIgreja(id));
+        if (window.confirm("Tem certeza que deseja deletar esta pessoa?")) {
+            dispatch(deletePessoa(id));
         }
     };
     return (
@@ -39,14 +40,14 @@ function IgrejaListScreen() {
                 {userInfo && (
                     <Container>
                         <ListComponent
-                            title="Igrejas"
-                            items={igrejas}
+                            title="Pessoas"
+                            items={pessoas}
                             onDelete={deleteHandler}
                             loading={loading}
                             error={error}
                             Loader={Loader}
                             Message={Message}
-                            linkUpdate="igrejas"
+                            linkUpdate="pessoas"
                         />
                     </Container>
                 )}
@@ -55,4 +56,4 @@ function IgrejaListScreen() {
     );
 }
 
-export default IgrejaListScreen;
+export default PessoaListScreen;

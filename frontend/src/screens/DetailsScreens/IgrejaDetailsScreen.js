@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listIgrejaDetails, updateIgreja } from "../actions/igrejaActions";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
-import DetailsComponent from "../components/DetailsComponent";
+import { listIgrejaDetails, updateIgreja } from "../../actions/igrejaActions";
+import Loader from "../../components/Loader";
+import Message from "../../components/Message";
+import DetailsComponent from "../../components/DetailsComponent";
 import { useParams } from "react-router-dom";
 
 function IgrejaDetailsScreen() {

@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listEnderecos, deleteEndereco } from "../actions/enderecoActions";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
-import ListComponent from "../components/ListComponent";
+import { listProfissoes, deleteProfissao } from "../../actions/profissaoActions";
+import Loader from "../../components/Loader";
+import Message from "../../components/Message";
+import ListComponent from "../../components/ListComponent";
 import { Container } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 
-function EnderecoListScreen() {
+function ProfissaoListScreen() {
     const dispatch = useDispatch();
 
-    const enderecoList = useSelector((state) => state.enderecoList);
-    const { loading, error, enderecos } = enderecoList;
+    const profissaoList = useSelector((state) => state.profissaoList);
+    const { loading, error, profissoes } = profissaoList;
 
-    const enderecoDelete = useSelector((state) => state.enderecoDelete);
-    const { success: successDelete } = enderecoDelete;
+    const profissaoDelete = useSelector((state) => state.profissaoDelete);
+    const { success: successDelete } = profissaoDelete;
 
     const userLogin = useSelector((state) => state.userLogin);
 
@@ -23,14 +23,14 @@ function EnderecoListScreen() {
 
     useEffect(() => {
         if (userInfo) {
-            dispatch(listEnderecos());
+            dispatch(listProfissoes());
         } else {
             navigate(`/login`);
         }
     }, [dispatch, navigate, successDelete, userInfo]);
     const deleteHandler = (id) => {
-        if (window.confirm("Tem certeza que deseja deletar esta endereço?")) {
-            dispatch(deleteEndereco(id));
+        if (window.confirm("Tem certeza que deseja deletar esta profissao?")) {
+            dispatch(deleteProfissao(id));
         }
     };
     return (
@@ -39,14 +39,14 @@ function EnderecoListScreen() {
                 {userInfo && (
                     <Container>
                         <ListComponent
-                            title="Endereços"
-                            items={enderecos}
+                            title="Profissoes"
+                            items={profissoes}
                             onDelete={deleteHandler}
                             loading={loading}
                             error={error}
                             Loader={Loader}
                             Message={Message}
-                            linkUpdate="enderecos"
+                            linkUpdate="profissoes"
                         />
                     </Container>
                 )}
@@ -55,4 +55,4 @@ function EnderecoListScreen() {
     );
 }
 
-export default EnderecoListScreen;
+export default ProfissaoListScreen;

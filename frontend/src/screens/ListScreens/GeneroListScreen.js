@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listProfissoes, deleteProfissao } from "../actions/profissaoActions";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
-import ListComponent from "../components/ListComponent";
+import { listGeneros, deleteGenero } from "../../actions/generoActions";
+import Loader from "../../components/Loader";
+import Message from "../../components/Message";
+import ListComponent from "../../components/ListComponent";
 import { Container } from "react-bootstrap";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function ProfissaoListScreen() {
+function GeneroListScreen() {
     const dispatch = useDispatch();
 
-    const profissaoList = useSelector((state) => state.profissaoList);
-    const { loading, error, profissoes } = profissaoList;
+    const generoList = useSelector((state) => state.generoList);
+    const { loading, error, generos } = generoList;
 
-    const profissaoDelete = useSelector((state) => state.profissaoDelete);
-    const { success: successDelete } = profissaoDelete;
+    const generoDelete = useSelector((state) => state.generoDelete);
+    const { success: successDelete } = generoDelete;
 
     const userLogin = useSelector((state) => state.userLogin);
 
@@ -23,14 +23,14 @@ function ProfissaoListScreen() {
 
     useEffect(() => {
         if (userInfo) {
-            dispatch(listProfissoes());
+            dispatch(listGeneros());
         } else {
             navigate(`/login`);
         }
     }, [dispatch, navigate, successDelete, userInfo]);
     const deleteHandler = (id) => {
-        if (window.confirm("Tem certeza que deseja deletar esta profissao?")) {
-            dispatch(deleteProfissao(id));
+        if (window.confirm("Tem certeza que deseja deletar este genero?")) {
+            dispatch(deleteGenero(id));
         }
     };
     return (
@@ -39,14 +39,14 @@ function ProfissaoListScreen() {
                 {userInfo && (
                     <Container>
                         <ListComponent
-                            title="Profissoes"
-                            items={profissoes}
+                            title="Generos"
+                            items={generos}
                             onDelete={deleteHandler}
                             loading={loading}
                             error={error}
                             Loader={Loader}
                             Message={Message}
-                            linkUpdate="profissoes"
+                            linkUpdate="generos"
                         />
                     </Container>
                 )}
@@ -55,4 +55,4 @@ function ProfissaoListScreen() {
     );
 }
 
-export default ProfissaoListScreen;
+export default GeneroListScreen;

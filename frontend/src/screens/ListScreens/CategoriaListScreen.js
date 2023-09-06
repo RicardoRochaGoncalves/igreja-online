@@ -1,23 +1,20 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    listEstadosCivis,
-    deleteEstadoCivil,
-} from "../actions/estadoCivilActions";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
-import ListComponent from "../components/ListComponent";
+import { listCategorias, deleteCategoria } from "../../actions/categoriaActions";
+import Loader from "../../components/Loader";
+import Message from "../../components/Message";
+import ListComponent from "../../components/ListComponent";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-function EstadoCivilListScreen() {
+function CategoriaListScreen() {
     const dispatch = useDispatch();
 
-    const estadoCivilList = useSelector((state) => state.estadoCivilList);
-    const { loading, error, estadosCivis } = estadoCivilList;
+    const categoriaList = useSelector((state) => state.categoriaList);
+    const { loading, error, categorias } = categoriaList;
 
-    const estadoCivilDelete = useSelector((state) => state.estadoCivilDelete);
-    const { success: successDelete } = estadoCivilDelete;
+    const categoriaDelete = useSelector((state) => state.categoriaDelete);
+    const { success: successDelete } = categoriaDelete;
 
     const userLogin = useSelector((state) => state.userLogin);
 
@@ -26,32 +23,30 @@ function EstadoCivilListScreen() {
 
     useEffect(() => {
         if (userInfo) {
-            dispatch(listEstadosCivis());
+            dispatch(listCategorias());
         } else {
             navigate(`/login`);
         }
     }, [dispatch, navigate, successDelete, userInfo]);
     const deleteHandler = (id) => {
-        if (
-            window.confirm("Tem certeza que deseja deletar este estado Civil?")
-        ) {
-            dispatch(deleteEstadoCivil(id));
+        if (window.confirm("Tem certeza que deseja deletar esta categoria?")) {
+            dispatch(deleteCategoria(id));
         }
-    };
+    }; 
     return (
         <div>
             <div>
                 {userInfo && (
                     <Container>
                         <ListComponent
-                            title="Estados Civis"
-                            items={estadosCivis}
+                            title="Categorias"
+                            items={categorias}
                             onDelete={deleteHandler}
                             loading={loading}
                             error={error}
                             Loader={Loader}
                             Message={Message}
-                            linkUpdate='estadoscivis'
+                            linkUpdate="categorias"
                         />
                     </Container>
                 )}
@@ -60,4 +55,4 @@ function EstadoCivilListScreen() {
     );
 }
 
-export default EstadoCivilListScreen;
+export default CategoriaListScreen;

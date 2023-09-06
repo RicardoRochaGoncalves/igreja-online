@@ -1,21 +1,20 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listPessoas, deletePessoa } from "../actions/pessoaActions";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
-import ListComponent from "../components/ListComponent";
-import { Container, ListGroup } from "react-bootstrap";
-import { Table, Button, Row, Col } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { listEnderecos, deleteEndereco } from "../../actions/enderecoActions";
+import Loader from "../../components/Loader";
+import Message from "../../components/Message";
+import ListComponent from "../../components/ListComponent";
+import { Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
-function PessoaListScreen() {
+function EnderecoListScreen() {
     const dispatch = useDispatch();
 
-    const pessoaList = useSelector((state) => state.pessoaList);
-    const { loading, error, pessoas } = pessoaList;
+    const enderecoList = useSelector((state) => state.enderecoList);
+    const { loading, error, enderecos } = enderecoList;
 
-    const pessoaDelete = useSelector((state) => state.pessoaDelete);
-    const { success: successDelete } = pessoaDelete;
+    const enderecoDelete = useSelector((state) => state.enderecoDelete);
+    const { success: successDelete } = enderecoDelete;
 
     const userLogin = useSelector((state) => state.userLogin);
 
@@ -24,14 +23,14 @@ function PessoaListScreen() {
 
     useEffect(() => {
         if (userInfo) {
-            dispatch(listPessoas());
+            dispatch(listEnderecos());
         } else {
             navigate(`/login`);
         }
     }, [dispatch, navigate, successDelete, userInfo]);
     const deleteHandler = (id) => {
-        if (window.confirm("Tem certeza que deseja deletar esta pessoa?")) {
-            dispatch(deletePessoa(id));
+        if (window.confirm("Tem certeza que deseja deletar esta endereço?")) {
+            dispatch(deleteEndereco(id));
         }
     };
     return (
@@ -40,14 +39,14 @@ function PessoaListScreen() {
                 {userInfo && (
                     <Container>
                         <ListComponent
-                            title="Pessoas"
-                            items={pessoas}
+                            title="Endereços"
+                            items={enderecos}
                             onDelete={deleteHandler}
                             loading={loading}
                             error={error}
                             Loader={Loader}
                             Message={Message}
-                            linkUpdate="pessoas"
+                            linkUpdate="enderecos"
                         />
                     </Container>
                 )}
@@ -56,4 +55,4 @@ function PessoaListScreen() {
     );
 }
 
-export default PessoaListScreen;
+export default EnderecoListScreen;

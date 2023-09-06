@@ -1,36 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listGeneroDetails, updateGenero } from "../actions/generoActions";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
-import DetailsComponent from "../components/DetailsComponent";
+import { listProfissaoDetails, updateProfissao } from "../../actions/profissaoActions";
+import Loader from "../../components/Loader";
+import Message from "../../components/Message";
+import DetailsComponent from "../../components/DetailsComponent";
 import { useParams } from "react-router-dom";
 
-function GeneroDetailsScreen() {
+function ProfissaoDetailsScreen() {
     const { id } = useParams();
     const dispatch = useDispatch();
-    const generoDetailsState = useSelector(
-        (state) => state.generoDetails
+    const profissaoDetailsState = useSelector(
+        (state) => state.profissaoDetails
     );
-    const { loading, error, genero } = generoDetailsState;
+    const { loading, error, profissao } = profissaoDetailsState;
 
     const [isEditing, setIsEditing] = useState(false);
     const [editedNome, setEditedNome] = useState("");
+    const [editedDescricao, setEditedDescricao] = useState("");
 
     useEffect(() => {
-        dispatch(listGeneroDetails(id));
+        dispatch(listProfissaoDetails(id));
     }, [dispatch, id]);
 
     const handleEditClick = () => {
         setIsEditing(true);
-        setEditedNome(genero.nome);
+        setEditedNome(profissao.nome);
+        setEditedDescricao(profissao.descricao);
     };
 
     const handleSaveClick = () => {
         dispatch(
-            updateGenero({
+            updateProfissao({
                 id: id,
                 nome: editedNome,
+                descricao: editedDescricao,
             })
         );
         setIsEditing(false);
@@ -38,11 +41,18 @@ function GeneroDetailsScreen() {
 
     const fields = [
         {
-            label: "Nome da genero",
-            placeholder: "Nome da genero",
+            label: "Nome da profissao",
+            placeholder: "Nome da profissao",
             value: editedNome,
-            initialValue: genero.nome,
+            initialValue: profissao.nome,
             onChange: (e) => setEditedNome(e.target.value),
+        },
+        {
+            label: "Descrição da profissao",
+            placeholder: "Descrição da profissao",
+            value: editedDescricao,
+            initialValue: profissao.descricao,
+            onChange: (e) => setEditedDescricao(e.target.value),
         },
     ];
 
@@ -54,7 +64,7 @@ function GeneroDetailsScreen() {
                 <Message variant="danger">{error}</Message>
             ) : (
                 <DetailsComponent
-                    title="Genero"
+                    title="Profissão"
                     isEditing={isEditing}
                     handleEditClick={handleEditClick}
                     handleSaveClick={handleSaveClick}
@@ -65,4 +75,4 @@ function GeneroDetailsScreen() {
     );
 }
 
-export default GeneroDetailsScreen;
+export default ProfissaoDetailsScreen;
