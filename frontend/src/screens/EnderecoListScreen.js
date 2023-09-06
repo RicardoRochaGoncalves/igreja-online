@@ -46,6 +46,7 @@ function EnderecoListScreen() {
                             error={error}
                             Loader={Loader}
                             Message={Message}
+                            linkUpdate="enderecos"
                         />
                     </Container>
                 )}

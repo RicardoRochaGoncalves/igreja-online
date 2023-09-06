@@ -32,7 +32,7 @@ function CategoriaListScreen() {
         if (window.confirm("Tem certeza que deseja deletar esta categoria?")) {
             dispatch(deleteCategoria(id));
         }
-    };
+    }; 
     return (
         <div>
             <div>
@@ -46,6 +46,7 @@ function CategoriaListScreen() {
                             error={error}
                             Loader={Loader}
                             Message={Message}
+                            linkUpdate="categorias"
                         />
                     </Container>
                 )}

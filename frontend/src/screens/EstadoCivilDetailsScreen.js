@@ -1,39 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listCategoriaDetails, updateCategoria } from "../actions/categoriaActions";
+import { listEstadoCivilDetails, updateEstadoCivil } from "../actions/estadoCivilActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import DetailsComponent from "../components/DetailsComponent";
 import { useParams } from "react-router-dom";
 
-function CategoriaDetailsScreen() {
+function EstadoCivilDetailsScreen() {
     const { id } = useParams();
     const dispatch = useDispatch();
-    const categoriaDetailsState = useSelector(
-        (state) => state.categoriaDetails
+    const estadoCivilDetailsState = useSelector(
+        (state) => state.estadoCivilDetails
     );
-    const { loading, error, categoria } = categoriaDetailsState;
+    const { loading, error, estadoCivil } = estadoCivilDetailsState;
 
     const [isEditing, setIsEditing] = useState(false);
     const [editedNome, setEditedNome] = useState("");
-    const [editedDescricao, setEditedDescricao] = useState("");
 
     useEffect(() => {
-        dispatch(listCategoriaDetails(id));
+        dispatch(listEstadoCivilDetails(id));
     }, [dispatch, id]);
 
     const handleEditClick = () => {
         setIsEditing(true);
-        setEditedNome(categoria.nome);
-        setEditedDescricao(categoria.descricao);
+        setEditedNome(estadoCivil.nome);
+
     };
 
     const handleSaveClick = () => {
         dispatch(
-            updateCategoria({
+            updateEstadoCivil({
                 id: id,
                 nome: editedNome,
-                descricao: editedDescricao,
+
             })
         );
         setIsEditing(false);
@@ -41,18 +40,11 @@ function CategoriaDetailsScreen() {
 
     const fields = [
         {
-            label: "Nome da Categoria",
-            placeholder: "Nome da Categoria",
+            label: "Nome",
+            placeholder: "Digite o estado civil",
             value: editedNome,
-            initialValue: categoria.nome,
+            initialValue: estadoCivil.nome,
             onChange: (e) => setEditedNome(e.target.value),
-        },
-        {
-            label: "Descrição da Categoria",
-            placeholder: "Descrição da Categoria",
-            value: editedDescricao,
-            initialValue: categoria.descricao,
-            onChange: (e) => setEditedDescricao(e.target.value),
         },
     ];
 
@@ -64,7 +56,7 @@ function CategoriaDetailsScreen() {
                 <Message variant="danger">{error}</Message>
             ) : (
                 <DetailsComponent
-                    title="Categoria"
+                    title="Estado Civil"
                     isEditing={isEditing}
                     handleEditClick={handleEditClick}
                     handleSaveClick={handleSaveClick}
@@ -75,4 +67,4 @@ function CategoriaDetailsScreen() {
     );
 }
 
-export default CategoriaDetailsScreen;
+export default EstadoCivilDetailsScreen;

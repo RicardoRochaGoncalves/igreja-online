@@ -5,6 +5,13 @@ import {
     ENDERECO_DELETE_REQUEST,
     ENDERECO_DELETE_SUCCESS,
     ENDERECO_DELETE_FAIL,
+    ENDERECO_DETAILS_REQUEST,
+    ENDERECO_DETAILS_SUCCESS,
+    ENDERECO_DETAILS_FAIL,
+    ENDERECO_UPDATE_REQUEST,
+    ENDERECO_UPDATE_SUCCESS,
+    ENDERECO_UPDATE_FAIL,
+    ENDERECO_UPDATE_RESET,
 } from "../constants/enderecoConstants";
 
 export const enderecoListReducer = (state = { enderecos: [] }, action) => {
@@ -28,6 +35,34 @@ export const enderecoDeleteReducer = (state = {}, action) => {
             return { loading: false, success: true };
         case ENDERECO_DELETE_FAIL:
             return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+}
+
+export const enderecoDetailsReducer = (state = { endereco: {} }, action) => {
+    switch (action.type) {
+        case ENDERECO_DETAILS_REQUEST:
+            return { ...state, loading: true };
+        case ENDERECO_DETAILS_SUCCESS:
+            return { loading: false, endereco: action.payload };
+        case ENDERECO_DETAILS_FAIL:
+            return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+}
+
+export const enderecoUpdateReducer = (state = { endereco: {} }, action) => {
+    switch (action.type) {
+        case ENDERECO_UPDATE_REQUEST:
+            return { loading: true };
+        case ENDERECO_UPDATE_SUCCESS:
+            return { loading: false, success: true, endereco: action.payload };
+        case ENDERECO_UPDATE_FAIL:
+            return { loading: false, error: action.payload };
+        case ENDERECO_UPDATE_RESET:
+            return { endereco: {} };
         default:
             return state;
     }

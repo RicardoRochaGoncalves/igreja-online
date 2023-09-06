@@ -8,6 +8,10 @@ import {
     CATEGORIA_DETAILS_REQUEST,
     CATEGORIA_DETAILS_SUCCESS,
     CATEGORIA_DETAILS_FAIL,
+    CATEGORIA_UPDATE_REQUEST,
+    CATEGORIA_UPDATE_SUCCESS,
+    CATEGORIA_UPDATE_FAIL,
+    CATEGORIA_UPDATE_RESET,
 } from "../constants/categoriaConstants";
 
 export const categoriaListReducer = (state = { categorias: [] }, action) => {
@@ -44,6 +48,21 @@ export const categoriaDetailsReducer = (state = { categoria: {} }, action) => {
             return { loading: false, categoria: action.payload };
         case CATEGORIA_DETAILS_FAIL:
             return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+}
+
+export const categoriaUpdateReducer = (state = { categoria: {} }, action) => {
+    switch (action.type) {
+        case CATEGORIA_UPDATE_REQUEST:
+            return { loading: true };
+        case CATEGORIA_UPDATE_SUCCESS:
+            return { loading: false, success: true, categoria: action.payload };
+        case CATEGORIA_UPDATE_FAIL:
+            return { loading: false, error: action.payload };
+        case CATEGORIA_UPDATE_RESET:
+            return { categoria: {} };
         default:
             return state;
     }

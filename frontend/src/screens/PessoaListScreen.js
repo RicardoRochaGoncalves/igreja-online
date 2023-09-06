@@ -47,6 +47,7 @@ function PessoaListScreen() {
                             error={error}
                             Loader={Loader}
                             Message={Message}
+                            linkUpdate="pessoas"
                         />
                     </Container>
                 )}

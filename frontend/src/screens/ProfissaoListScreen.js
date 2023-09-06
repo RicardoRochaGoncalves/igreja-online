@@ -46,6 +46,7 @@ function ProfissaoListScreen() {
                             error={error}
                             Loader={Loader}
                             Message={Message}
+                            linkUpdate="profissoes"
                         />
                     </Container>
                 )}

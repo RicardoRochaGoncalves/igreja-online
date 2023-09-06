@@ -51,6 +51,7 @@ function EstadoCivilListScreen() {
                             error={error}
                             Loader={Loader}
                             Message={Message}
+                            linkUpdate='estadoscivis'
                         />
                     </Container>
                 )}

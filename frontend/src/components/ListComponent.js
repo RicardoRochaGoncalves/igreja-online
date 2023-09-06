@@ -1,7 +1,17 @@
 import React from "react";
 import { Button, ListGroup, Col, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-function ListComponent({ title, items, onDelete, loading, error, Loader, Message }) {
+function ListComponent({
+    title,
+    items,
+    onDelete,
+    loading,
+    error,
+    Loader,
+    Message,
+    linkUpdate,
+}) {
     return (
         <div>
             <Row>
@@ -17,7 +27,7 @@ function ListComponent({ title, items, onDelete, loading, error, Loader, Message
             {loading ? (
                 <Loader />
             ) : error ? (
-                <Message variant="danger" >{error}</Message>
+                <Message variant="danger">{error}</Message>
             ) : (
                 <Row>
                     <Col md={8}>
@@ -27,12 +37,14 @@ function ListComponent({ title, items, onDelete, loading, error, Loader, Message
                                     <div className="d-flex justify-content-between align-items-center">
                                         {item.nome}
                                         <div>
-                                            <Button
-                                                variant="light"
-                                                className="btn-sm"
-                                            >
-                                                <i className="fas fa-edit"></i>
-                                            </Button>
+                                            <Link to={`/${linkUpdate}/${item.id}`}>
+                                                <Button
+                                                    variant="light"
+                                                    className="btn-sm"
+                                                >
+                                                    <i className="fas fa-edit"></i>
+                                                </Button>
+                                            </Link>
                                             <Button
                                                 variant="danger"
                                                 className="btn-sm"

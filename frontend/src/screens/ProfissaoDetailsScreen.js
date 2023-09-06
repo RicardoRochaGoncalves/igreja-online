@@ -1,36 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listCategoriaDetails, updateCategoria } from "../actions/categoriaActions";
+import { listProfissaoDetails, updateProfissao } from "../actions/profissaoActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import DetailsComponent from "../components/DetailsComponent";
 import { useParams } from "react-router-dom";
 
-function CategoriaDetailsScreen() {
+function ProfissaoDetailsScreen() {
     const { id } = useParams();
     const dispatch = useDispatch();
-    const categoriaDetailsState = useSelector(
-        (state) => state.categoriaDetails
+    const profissaoDetailsState = useSelector(
+        (state) => state.profissaoDetails
     );
-    const { loading, error, categoria } = categoriaDetailsState;
+    const { loading, error, profissao } = profissaoDetailsState;
 
     const [isEditing, setIsEditing] = useState(false);
     const [editedNome, setEditedNome] = useState("");
     const [editedDescricao, setEditedDescricao] = useState("");
 
     useEffect(() => {
-        dispatch(listCategoriaDetails(id));
+        dispatch(listProfissaoDetails(id));
     }, [dispatch, id]);
 
     const handleEditClick = () => {
         setIsEditing(true);
-        setEditedNome(categoria.nome);
-        setEditedDescricao(categoria.descricao);
+        setEditedNome(profissao.nome);
+        setEditedDescricao(profissao.descricao);
     };
 
     const handleSaveClick = () => {
         dispatch(
-            updateCategoria({
+            updateProfissao({
                 id: id,
                 nome: editedNome,
                 descricao: editedDescricao,
@@ -41,17 +41,17 @@ function CategoriaDetailsScreen() {
 
     const fields = [
         {
-            label: "Nome da Categoria",
-            placeholder: "Nome da Categoria",
+            label: "Nome da profissao",
+            placeholder: "Nome da profissao",
             value: editedNome,
-            initialValue: categoria.nome,
+            initialValue: profissao.nome,
             onChange: (e) => setEditedNome(e.target.value),
         },
         {
-            label: "Descrição da Categoria",
-            placeholder: "Descrição da Categoria",
+            label: "Descrição da profissao",
+            placeholder: "Descrição da profissao",
             value: editedDescricao,
-            initialValue: categoria.descricao,
+            initialValue: profissao.descricao,
             onChange: (e) => setEditedDescricao(e.target.value),
         },
     ];
@@ -64,7 +64,7 @@ function CategoriaDetailsScreen() {
                 <Message variant="danger">{error}</Message>
             ) : (
                 <DetailsComponent
-                    title="Categoria"
+                    title="Profissão"
                     isEditing={isEditing}
                     handleEditClick={handleEditClick}
                     handleSaveClick={handleSaveClick}
@@ -75,4 +75,4 @@ function CategoriaDetailsScreen() {
     );
 }
 
-export default CategoriaDetailsScreen;
+export default ProfissaoDetailsScreen;

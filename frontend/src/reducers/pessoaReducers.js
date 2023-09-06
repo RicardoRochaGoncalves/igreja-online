@@ -5,6 +5,13 @@ import {
     PESSOA_DELETE_REQUEST,
     PESSOA_DELETE_SUCCESS,
     PESSOA_DELETE_FAIL,
+    PESSOA_DETAILS_REQUEST,
+    PESSOA_DETAILS_SUCCESS,
+    PESSOA_DETAILS_FAIL,
+    PESSOA_UPDATE_REQUEST,
+    PESSOA_UPDATE_SUCCESS,
+    PESSOA_UPDATE_FAIL,
+    PESSOA_UPDATE_RESET,
 } from "../constants/pessoaConstants";
 
 export const pessoaListReducer = (state = { pessoas: [] }, action) => {
@@ -32,3 +39,31 @@ export const pessoaDeleteReducer = (state = {}, action) => {
             return state;
     }
 };
+
+export const pessoaDetailsReducer = (state = { pessoa: {} }, action) => {
+    switch (action.type) {
+        case PESSOA_DETAILS_REQUEST:
+            return { ...state, loading: true };
+        case PESSOA_DETAILS_SUCCESS:
+            return { loading: false, pessoa: action.payload };
+        case PESSOA_DETAILS_FAIL:
+            return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+export const pessoaUpdateReducer = (state = { pessoa: {} }, action) => {
+    switch (action.type) {
+        case PESSOA_UPDATE_REQUEST:
+            return { loading: true };
+        case PESSOA_UPDATE_SUCCESS:
+            return { loading: false, success: true, pessoa: action.payload };
+        case PESSOA_UPDATE_FAIL:
+            return { loading: false, error: action.payload };
+        case PESSOA_UPDATE_RESET:
+            return { pessoa: {} };
+        default:
+            return state;
+    }
+}

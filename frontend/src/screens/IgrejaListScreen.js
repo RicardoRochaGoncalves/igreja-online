@@ -46,6 +46,7 @@ function IgrejaListScreen() {
                             error={error}
                             Loader={Loader}
                             Message={Message}
+                            linkUpdate="igrejas"
                         />
                     </Container>
                 )}

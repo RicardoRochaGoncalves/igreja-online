@@ -46,6 +46,7 @@ function GeneroListScreen() {
                             error={error}
                             Loader={Loader}
                             Message={Message}
+                            linkUpdate="generos"
                         />
                     </Container>
                 )}

@@ -5,6 +5,13 @@ import {
     PROFISSAO_DELETE_REQUEST,
     PROFISSAO_DELETE_SUCCESS,
     PROFISSAO_DELETE_FAIL,
+    PROFISSAO_DETAILS_REQUEST,
+    PROFISSAO_DETAILS_SUCCESS,
+    PROFISSAO_DETAILS_FAIL,
+    PROFISSAO_UPDATE_REQUEST,
+    PROFISSAO_UPDATE_SUCCESS,
+    PROFISSAO_UPDATE_FAIL,
+    PROFISSAO_UPDATE_RESET,
 } from "../constants/profissaoConstants";
 
 export const profissaoListReducer = (state = { profissoes: [] }, action) => {
@@ -28,6 +35,34 @@ export const profissaoDeleteReducer = (state = {}, action) => {
             return { loading: false, success: true };
         case PROFISSAO_DELETE_FAIL:
             return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+}
+
+export const profissaoDetailsReducer = (state = { profissao: {} }, action) => {
+    switch (action.type) {
+        case PROFISSAO_DETAILS_REQUEST:
+            return { ...state, loading: true };
+        case PROFISSAO_DETAILS_SUCCESS:
+            return { loading: false, profissao: action.payload };
+        case PROFISSAO_DETAILS_FAIL:
+            return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+}
+
+export const profissaoUpdateReducer = (state = { profissao: {} }, action) => {
+    switch (action.type) {
+        case PROFISSAO_UPDATE_REQUEST:
+            return { loading: true };
+        case PROFISSAO_UPDATE_SUCCESS:
+            return { loading: false, success: true, profissao: action.payload };
+        case PROFISSAO_UPDATE_FAIL:
+            return { loading: false, error: action.payload };
+        case PROFISSAO_UPDATE_RESET:
+            return { profissao: {} };
         default:
             return state;
     }
