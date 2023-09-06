@@ -12,6 +12,10 @@ import {
     CATEGORIA_UPDATE_SUCCESS,
     CATEGORIA_UPDATE_FAIL,
     CATEGORIA_UPDATE_RESET,
+    CATEGORIA_CREATE_REQUEST,
+    CATEGORIA_CREATE_SUCCESS,
+    CATEGORIA_CREATE_FAIL,
+    CATEGORIA_CREATE_RESET,
 } from "../constants/categoriaConstants";
 
 export const categoriaListReducer = (state = { categorias: [] }, action) => {
@@ -67,3 +71,19 @@ export const categoriaUpdateReducer = (state = { categoria: {} }, action) => {
             return state;
     }
 }
+
+export const categoriaCreateReducer = (state = { categoria: {} }, action) => {
+    switch (action.type) {
+        case CATEGORIA_CREATE_REQUEST:
+            return { loading: true };
+        case CATEGORIA_CREATE_SUCCESS:
+            return { loading: false, success: true, categoria: action.payload };
+        case CATEGORIA_CREATE_FAIL:
+            return { loading: false, error: action.payload };
+        case CATEGORIA_CREATE_RESET:
+            return { categoria: {} };
+        default:
+            return state;
+    }
+}
+

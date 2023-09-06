@@ -12,6 +12,10 @@ import {
     PROFISSAO_UPDATE_SUCCESS,
     PROFISSAO_UPDATE_FAIL,
     PROFISSAO_UPDATE_RESET,
+    PROFISSAO_CREATE_REQUEST,
+    PROFISSAO_CREATE_SUCCESS,
+    PROFISSAO_CREATE_FAIL,
+    PROFISSAO_CREATE_RESET,
 } from "../constants/profissaoConstants";
 import axios from "axios";
 
@@ -120,6 +124,36 @@ export const updateProfissao = (profissao) => async (dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: PROFISSAO_UPDATE_FAIL,
+            payload:
+                error.response && error.response.data.detail
+                    ? error.response.data.detail
+                    : error.message,
+        });
+    }
+}
+
+export const createProfissao = (profissao) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: PROFISSAO_CREATE_REQUEST,
+        });
+        const {
+            userLogin: { userInfo },
+        } = getState();
+        const config = {
+            headers: {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+        const {data} = await axios.post(`/api/profissoes/create/`, profissao, config);
+        dispatch({
+            type: PROFISSAO_CREATE_SUCCESS,
+            payload: data
+        });
+    } catch (error) {
+        dispatch({
+            type: PROFISSAO_CREATE_FAIL,
             payload:
                 error.response && error.response.data.detail
                     ? error.response.data.detail

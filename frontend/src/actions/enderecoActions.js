@@ -12,6 +12,10 @@ import {
     ENDERECO_UPDATE_SUCCESS,
     ENDERECO_UPDATE_FAIL,
     ENDERECO_UPDATE_RESET,
+    ENDERECO_CREATE_REQUEST,
+    ENDERECO_CREATE_SUCCESS,
+    ENDERECO_CREATE_FAIL,
+    ENDERECO_CREATE_RESET,
 } from "../constants/enderecoConstants";
 import axios from "axios";
 
@@ -127,6 +131,40 @@ export const updateEndereco = (endereco) => async (dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: ENDERECO_UPDATE_FAIL,
+            payload:
+                error.response && error.response.data.detail
+                    ? error.response.data.detail
+                    : error.message,
+        });
+    }
+};
+
+export const createEndereco = (endereco) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: ENDERECO_CREATE_REQUEST,
+        });
+        const {
+            userLogin: { userInfo },
+        } = getState();
+        const config = {
+            headers: {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+        const { data } = await axios.post(
+            `/api/enderecos/create/`,
+            endereco,
+            config
+        );
+        dispatch({
+            type: ENDERECO_CREATE_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type: ENDERECO_CREATE_FAIL,
             payload:
                 error.response && error.response.data.detail
                     ? error.response.data.detail

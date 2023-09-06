@@ -1,13 +1,55 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
-import { generoListReducer, generoDeleteReducer, generoDetailsReducer, generoUpdateReducer } from "./reducers/generoReducers";
 import { userLoginReducer } from "./reducers/userReducers";
-import { categoriaListReducer, categoriaDeleteReducer, categoriaDetailsReducer, categoriaUpdateReducer } from "./reducers/categoriaReducers";
-import { enderecoListReducer, enderecoDeleteReducer, enderecoDetailsReducer, enderecoUpdateReducer } from "./reducers/enderecoReducers";
-import { estadoCivilListReducer, estadoCivilDeleteReducer, estadoCivilDetailsReducer, estadoCivilUpdateReducer} from "./reducers/estadoCivilReducers";
-import { igrejaListReducer, igrejaDeleteReducer, igrejaDetailsReducer,igrejaUpdateReducer } from "./reducers/igrejaReducers";
-import { pessoaListReducer, pessoaDeleteReducer, pessoaDetailsReducer, pessoaUpdateReducer } from "./reducers/pessoaReducers";
-import { profissaoListReducer, profissaoDeleteReducer, profissaoDetailsReducer, profissaoUpdateReducer } from "./reducers/profissaoReducers";
+import {
+    generoListReducer,
+    generoDeleteReducer,
+    generoDetailsReducer,
+    generoUpdateReducer,
+    generoCreateReducer,
+} from "./reducers/generoReducers";
+import {
+    categoriaListReducer,
+    categoriaDeleteReducer,
+    categoriaDetailsReducer,
+    categoriaUpdateReducer,
+    categoriaCreateReducer,
+} from "./reducers/categoriaReducers";
+import {
+    enderecoListReducer,
+    enderecoDeleteReducer,
+    enderecoDetailsReducer,
+    enderecoUpdateReducer,
+    enderecoCreateReducer,
+} from "./reducers/enderecoReducers";
+import {
+    estadoCivilListReducer,
+    estadoCivilDeleteReducer,
+    estadoCivilDetailsReducer,
+    estadoCivilUpdateReducer,
+    estadoCivilCreateReducer,
+} from "./reducers/estadoCivilReducers";
+import {
+    igrejaListReducer,
+    igrejaDeleteReducer,
+    igrejaDetailsReducer,
+    igrejaUpdateReducer,
+    igrejaCreateReducer,
+} from "./reducers/igrejaReducers";
+import {
+    pessoaListReducer,
+    pessoaDeleteReducer,
+    pessoaDetailsReducer,
+    pessoaUpdateReducer,
+    pessoaCreateReducer,
+} from "./reducers/pessoaReducers";
+import {
+    profissaoListReducer,
+    profissaoDeleteReducer,
+    profissaoDetailsReducer,
+    profissaoUpdateReducer,
+    profissaoCreateReducer,
+} from "./reducers/profissaoReducers";
 
 const reducer = combineReducers({
     generoList: generoListReducer,
@@ -39,6 +81,13 @@ const reducer = combineReducers({
     pessoaUpdate: pessoaUpdateReducer,
     profissaoDetails: profissaoDetailsReducer,
     profissaoUpdate: profissaoUpdateReducer,
+    categoriaCreate: categoriaCreateReducer,
+    enderecoCreate: enderecoCreateReducer,
+    estadoCivilCreate: estadoCivilCreateReducer,
+    generoCreate: generoCreateReducer,
+    igrejaCreate: igrejaCreateReducer,
+    pessoaCreate: pessoaCreateReducer,
+    profissaoCreate: profissaoCreateReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

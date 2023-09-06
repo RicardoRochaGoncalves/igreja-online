@@ -12,6 +12,10 @@ import {
     PROFISSAO_UPDATE_SUCCESS,
     PROFISSAO_UPDATE_FAIL,
     PROFISSAO_UPDATE_RESET,
+    PROFISSAO_CREATE_REQUEST,
+    PROFISSAO_CREATE_SUCCESS,
+    PROFISSAO_CREATE_FAIL,
+    PROFISSAO_CREATE_RESET,
 } from "../constants/profissaoConstants";
 
 export const profissaoListReducer = (state = { profissoes: [] }, action) => {
@@ -62,6 +66,21 @@ export const profissaoUpdateReducer = (state = { profissao: {} }, action) => {
         case PROFISSAO_UPDATE_FAIL:
             return { loading: false, error: action.payload };
         case PROFISSAO_UPDATE_RESET:
+            return { profissao: {} };
+        default:
+            return state;
+    }
+}
+
+export const profissaoCreateReducer = (state = { profissao: {} }, action) => {
+    switch (action.type) {
+        case PROFISSAO_CREATE_REQUEST:
+            return { loading: true };
+        case PROFISSAO_CREATE_SUCCESS:
+            return { loading: false, success: true, profissao: action.payload };
+        case PROFISSAO_CREATE_FAIL:
+            return { loading: false, error: action.payload };
+        case PROFISSAO_CREATE_RESET:
             return { profissao: {} };
         default:
             return state;

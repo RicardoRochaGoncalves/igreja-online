@@ -12,6 +12,10 @@ import {
     IGREJA_UPDATE_SUCCESS,
     IGREJA_UPDATE_FAIL,
     IGREJA_UPDATE_RESET,
+    IGREJA_CREATE_REQUEST,
+    IGREJA_CREATE_SUCCESS,
+    IGREJA_CREATE_FAIL,
+    IGREJA_CREATE_RESET,
 } from "../constants/igrejaConstants";
 
 export const igrejaListReducer = (state = { igrejas: [] }, action) => {
@@ -67,3 +71,19 @@ export const igrejaUpdateReducer = (state = { igreja: {} }, action) => {
             return state;
     }
 }
+
+export const igrejaCreateReducer = (state = { igreja: {} }, action) => {
+    switch (action.type) {
+        case IGREJA_CREATE_REQUEST:
+            return { loading: true };
+        case IGREJA_CREATE_SUCCESS:
+            return { loading: false, success: true, igreja: action.payload };
+        case IGREJA_CREATE_FAIL:
+            return { loading: false, error: action.payload };
+        case IGREJA_CREATE_RESET:
+            return { igreja: {} };
+        default:
+            return state;
+    }
+}
+

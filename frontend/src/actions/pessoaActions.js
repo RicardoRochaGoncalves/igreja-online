@@ -12,6 +12,10 @@ import {
     PESSOA_UPDATE_SUCCESS,
     PESSOA_UPDATE_FAIL,
     PESSOA_UPDATE_RESET,
+    PESSOA_CREATE_REQUEST,
+    PESSOA_CREATE_SUCCESS,
+    PESSOA_CREATE_FAIL,
+    PESSOA_CREATE_RESET,
 } from "../constants/pessoaConstants";
 import axios from "axios";
 
@@ -120,6 +124,37 @@ export const updatePessoa = (pessoa) => async (dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: PESSOA_UPDATE_FAIL,
+            payload:
+                error.response && error.response.data.detail
+                    ? error.response.data.detail
+                    : error.message,
+        });
+    }
+}
+
+
+export const createPessoa = (pessoa) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: PESSOA_CREATE_REQUEST,
+        });
+        const {
+            userLogin: { userInfo },
+        } = getState();
+        const config = {
+            headers: {
+                "Content-type": "multipart/form-data",
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+        const {data} = await axios.post(`/api/pessoas/create/`, pessoa, config);
+        dispatch({
+            type: PESSOA_CREATE_SUCCESS,
+            payload: data
+        });
+    } catch (error) {
+        dispatch({
+            type: PESSOA_CREATE_FAIL,
             payload:
                 error.response && error.response.data.detail
                     ? error.response.data.detail

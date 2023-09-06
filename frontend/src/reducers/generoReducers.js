@@ -12,6 +12,10 @@ import {
     GENERO_UPDATE_SUCCESS,
     GENERO_UPDATE_FAIL,
     GENERO_UPDATE_RESET,
+    GENERO_CREATE_REQUEST,
+    GENERO_CREATE_SUCCESS,
+    GENERO_CREATE_FAIL,
+    GENERO_CREATE_RESET,
 } from "../constants/generoConstants";
 
 export const generoListReducer = (state = { generos: [] }, action) => {
@@ -62,6 +66,21 @@ export const generoUpdateReducer = (state = { genero: {} }, action) => {
         case GENERO_UPDATE_FAIL:
             return { loading: false, error: action.payload };
         case GENERO_UPDATE_RESET:
+            return { genero: {} };
+        default:
+            return state;
+    }
+}
+
+export const generoCreateReducer = (state = { genero: {} }, action) => {
+    switch (action.type) {
+        case GENERO_CREATE_REQUEST:
+            return { loading: true };
+        case GENERO_CREATE_SUCCESS:
+            return { loading: false, success: true, genero: action.payload };
+        case GENERO_CREATE_FAIL:
+            return { loading: false, error: action.payload };
+        case GENERO_CREATE_RESET:
             return { genero: {} };
         default:
             return state;

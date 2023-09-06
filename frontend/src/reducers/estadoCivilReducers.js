@@ -12,6 +12,10 @@ import {
     ESTADO_CIVIL_UPDATE_SUCCESS,
     ESTADO_CIVIL_UPDATE_FAIL,
     ESTADO_CIVIL_UPDATE_RESET,
+    ESTADO_CIVIL_CREATE_REQUEST,
+    ESTADO_CIVIL_CREATE_SUCCESS,
+    ESTADO_CIVIL_CREATE_FAIL,
+    ESTADO_CIVIL_CREATE_RESET,
 } from "../constants/estadoCivilConstants";
 
 export const estadoCivilListReducer = (
@@ -66,6 +70,21 @@ export const estadoCivilUpdateReducer = (state = { estadoCivil: {} }, action) =>
         case ESTADO_CIVIL_UPDATE_FAIL:
             return { loading: false, error: action.payload };
         case ESTADO_CIVIL_UPDATE_RESET:
+            return { estadoCivil: {} };
+        default:
+            return state;
+    }
+}
+
+export const estadoCivilCreateReducer = (state = { estadoCivil: {} }, action) => {
+    switch (action.type) {
+        case ESTADO_CIVIL_CREATE_REQUEST:
+            return { loading: true };
+        case ESTADO_CIVIL_CREATE_SUCCESS:
+            return { loading: false, success: true, estadoCivil: action.payload };
+        case ESTADO_CIVIL_CREATE_FAIL:
+            return { loading: false, error: action.payload };
+        case ESTADO_CIVIL_CREATE_RESET:
             return { estadoCivil: {} };
         default:
             return state;

@@ -12,6 +12,10 @@ import {
     CATEGORIA_UPDATE_SUCCESS,
     CATEGORIA_UPDATE_FAIL,
     CATEGORIA_UPDATE_RESET,
+    CATEGORIA_CREATE_REQUEST,
+    CATEGORIA_CREATE_SUCCESS,
+    CATEGORIA_CREATE_FAIL,
+    CATEGORIA_CREATE_RESET,
 } from "../constants/categoriaConstants";
 import axios from "axios";
 
@@ -126,6 +130,36 @@ export const updateCategoria = (categoria) => async (dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: CATEGORIA_UPDATE_FAIL,
+            payload:
+                error.response && error.response.data.detail
+                    ? error.response.data.detail
+                    : error.message,
+        });
+    }
+}
+
+export const createCategoria = (categoria) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: CATEGORIA_CREATE_REQUEST,
+        });
+        const {
+            userLogin: { userInfo },
+        } = getState();
+        const config = {
+            headers: {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+        const {data} = await axios.post(`/api/categorias/create/`, categoria, config);
+        dispatch({
+            type: CATEGORIA_CREATE_SUCCESS,
+            payload: data
+        });
+    } catch (error) {
+        dispatch({
+            type: CATEGORIA_CREATE_FAIL,
             payload:
                 error.response && error.response.data.detail
                     ? error.response.data.detail

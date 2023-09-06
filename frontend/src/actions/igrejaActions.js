@@ -12,6 +12,10 @@ import {
     IGREJA_UPDATE_SUCCESS,
     IGREJA_UPDATE_FAIL,
     IGREJA_UPDATE_RESET,
+    IGREJA_CREATE_REQUEST,
+    IGREJA_CREATE_SUCCESS,
+    IGREJA_CREATE_FAIL,
+    IGREJA_CREATE_RESET,
 } from "../constants/igrejaConstants";
 import axios from "axios";
 
@@ -127,6 +131,42 @@ export const updateIgreja = (igreja) => async (dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: IGREJA_UPDATE_FAIL,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        });
+    }
+};
+
+export const createIgreja = (igreja) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: IGREJA_CREATE_REQUEST,
+        });
+        const {
+            userLogin: { userInfo },
+        } = getState();
+        const config = {
+            headers: {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+
+        const { data } = await axios.post(
+            `/api/igrejas/create/`,
+            igreja,
+            config
+        );
+
+        dispatch({
+            type: IGREJA_CREATE_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type: IGREJA_CREATE_FAIL,
             payload:
                 error.response && error.response.data.message
                     ? error.response.data.message

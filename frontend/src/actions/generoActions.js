@@ -12,6 +12,10 @@ import {
     GENERO_UPDATE_SUCCESS,
     GENERO_UPDATE_FAIL,
     GENERO_UPDATE_RESET,
+    GENERO_CREATE_REQUEST,
+    GENERO_CREATE_SUCCESS,
+    GENERO_CREATE_FAIL,
+    GENERO_CREATE_RESET,
 } from "../constants/generoConstants";
 
 import axios from "axios";
@@ -130,6 +134,40 @@ export const updateGenero = (genero) => async ( dispatch, getState ) => {
     } catch (error) {
         dispatch({
             type: GENERO_UPDATE_FAIL,
+            payload:
+                error.response && error.response.data.detail
+                    ? error.response.data.detail
+                    : error.message,
+        });
+    }
+}
+
+export const createGenero = (genero) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: GENERO_CREATE_REQUEST,
+        });
+        const {
+            userLogin: { userInfo },
+        } = getState();
+        const config = {
+            headers: {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+        const { data } = await axios.post(
+            `/api/generos/create/`,
+            genero,
+            config
+        );
+        dispatch({
+            type: GENERO_CREATE_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type: GENERO_CREATE_FAIL,
             payload:
                 error.response && error.response.data.detail
                     ? error.response.data.detail

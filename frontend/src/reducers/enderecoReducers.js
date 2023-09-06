@@ -12,6 +12,10 @@ import {
     ENDERECO_UPDATE_SUCCESS,
     ENDERECO_UPDATE_FAIL,
     ENDERECO_UPDATE_RESET,
+    ENDERECO_CREATE_REQUEST,
+    ENDERECO_CREATE_SUCCESS,
+    ENDERECO_CREATE_FAIL,
+    ENDERECO_CREATE_RESET,
 } from "../constants/enderecoConstants";
 
 export const enderecoListReducer = (state = { enderecos: [] }, action) => {
@@ -62,6 +66,21 @@ export const enderecoUpdateReducer = (state = { endereco: {} }, action) => {
         case ENDERECO_UPDATE_FAIL:
             return { loading: false, error: action.payload };
         case ENDERECO_UPDATE_RESET:
+            return { endereco: {} };
+        default:
+            return state;
+    }
+}
+
+export const enderecoCreateReducer = (state = { endereco: {} }, action) => {
+    switch (action.type) {
+        case ENDERECO_CREATE_REQUEST:
+            return { loading: true };
+        case ENDERECO_CREATE_SUCCESS:
+            return { loading: false, success: true, endereco: action.payload };
+        case ENDERECO_CREATE_FAIL:
+            return { loading: false, error: action.payload };
+        case ENDERECO_CREATE_RESET:
             return { endereco: {} };
         default:
             return state;
