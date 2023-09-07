@@ -2,21 +2,21 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import GeneroListScreen from "./screens/GeneroListScreen";
-import LoginListScreen  from "./screens/LoginScreen";
-import CategoriaListScreen from "./screens/CategoriaListScreen";
-import EnderecoListScreen from "./screens/EnderecoListScreen";
-import EstadoCivilListScreen from "./screens/EstadoCivilListScreen";
-import IgrejaListScreen from "./screens/IgrejaListScreen";
-import PessoaListScreen from "./screens/PessoaListScreen";
-import ProfissaoListScreen from "./screens/ProfissaoListScreen";
-import CategoriaDetailsScreen from "./screens/CategoriaDetailsScreen";
-import EnderecoDetailsScreen from "./screens/EnderecoDetailsScreen";
-import EstadoCivilDetailsScreen from "./screens/EstadoCivilDetailsScreen";
-import GeneroDetailsScreen from "./screens/GeneroDetailsScreen";
-import IgrejaDetailsScreen from "./screens/IgrejaDetailsScreen";
-import PessoaDetailsScreen from "./screens/PessoaDetailsScreen";
-import ProfissaoDetailsScreen from "./screens/ProfissaoDetailsScreen";
+import GeneroListScreen from "./screens/ListScreens/GeneroListScreen";
+import LoginListScreen  from "./screens/UserScreens/LoginScreen";
+import CategoriaListScreen from "./screens/ListScreens/CategoriaListScreen";
+import EnderecoListScreen from "./screens/ListScreens/EnderecoListScreen";
+import EstadoCivilListScreen from "./screens/ListScreens/EstadoCivilListScreen";
+import IgrejaListScreen from "./screens/ListScreens/IgrejaListScreen";
+import PessoaListScreen from "./screens/ListScreens/PessoaListScreen";
+import ProfissaoListScreen from "./screens/ListScreens/ProfissaoListScreen";
+import CategoriaDetailsScreen from "./screens/DetailsScreens/CategoriaDetailsScreen";
+import EnderecoDetailsScreen from "./screens/DetailsScreens/EnderecoDetailsScreen";
+import EstadoCivilDetailsScreen from "./screens/DetailsScreens/EstadoCivilDetailsScreen";
+import GeneroDetailsScreen from "./screens/DetailsScreens/GeneroDetailsScreen";
+import IgrejaDetailsScreen from "./screens/DetailsScreens/IgrejaDetailsScreen";
+import PessoaDetailsScreen from "./screens/DetailsScreens/PessoaDetailsScreen";
+import ProfissaoDetailsScreen from "./screens/DetailsScreens/ProfissaoDetailsScreen";
 
 
 function App() {
