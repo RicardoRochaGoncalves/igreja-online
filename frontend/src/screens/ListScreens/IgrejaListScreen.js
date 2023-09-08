@@ -16,6 +16,9 @@ function IgrejaListScreen() {
     const igrejaDelete = useSelector((state) => state.igrejaDelete);
     const { success: successDelete } = igrejaDelete;
 
+    const igrejaCreate = useSelector((state) => state.igrejaCreate);
+    const { success: successCreate } = igrejaCreate;
+
     const userLogin = useSelector((state) => state.userLogin);
 
     const { userInfo } = userLogin;
@@ -27,7 +30,7 @@ function IgrejaListScreen() {
         } else {
             navigate(`/login`);
         }
-    }, [dispatch, navigate, successDelete, userInfo]);
+    }, [dispatch, navigate, successDelete, successCreate, userInfo]);
     const deleteHandler = (id) => {
         if (window.confirm("Tem certeza que deseja deletar esta igreja?")) {
             dispatch(deleteIgreja(id));

@@ -16,6 +16,9 @@ function CategoriaListScreen() {
     const categoriaDelete = useSelector((state) => state.categoriaDelete);
     const { success: successDelete } = categoriaDelete;
 
+    const categoriaCreate = useSelector((state) => state.categoriaCreate);
+    const { success: successCreate } = categoriaCreate;
+
     const userLogin = useSelector((state) => state.userLogin);
 
     const { userInfo } = userLogin;
@@ -27,7 +30,7 @@ function CategoriaListScreen() {
         } else {
             navigate(`/login`);
         }
-    }, [dispatch, navigate, successDelete, userInfo]);
+    }, [dispatch, navigate, successDelete, successCreate, userInfo]);
     const deleteHandler = (id) => {
         if (window.confirm("Tem certeza que deseja deletar esta categoria?")) {
             dispatch(deleteCategoria(id));

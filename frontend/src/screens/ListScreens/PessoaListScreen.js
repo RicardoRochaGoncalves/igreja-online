@@ -17,6 +17,9 @@ function PessoaListScreen() {
     const pessoaDelete = useSelector((state) => state.pessoaDelete);
     const { success: successDelete } = pessoaDelete;
 
+    const pessoaCreate = useSelector((state) => state.pessoaCreate);
+    const { success: successCreate } = pessoaCreate;
+
     const userLogin = useSelector((state) => state.userLogin);
 
     const { userInfo } = userLogin;
@@ -28,7 +31,7 @@ function PessoaListScreen() {
         } else {
             navigate(`/login`);
         }
-    }, [dispatch, navigate, successDelete, userInfo]);
+    }, [dispatch, navigate, successDelete, successCreate, userInfo]);
     const deleteHandler = (id) => {
         if (window.confirm("Tem certeza que deseja deletar esta pessoa?")) {
             dispatch(deletePessoa(id));

@@ -9,9 +9,7 @@ import { useParams } from "react-router-dom";
 function IgrejaDetailsScreen() {
     const { id } = useParams();
     const dispatch = useDispatch();
-    const igrejaDetailsState = useSelector(
-        (state) => state.igrejaDetails
-    );
+    const igrejaDetailsState = useSelector((state) => state.igrejaDetails);
     const { loading, error, igreja } = igrejaDetailsState;
 
     const [isEditing, setIsEditing] = useState(false);

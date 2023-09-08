@@ -47,7 +47,7 @@ def createPessoa(request):
         ativo=data["ativo"],
         batizado=data["batizado"],
         observacao=data["observacao"],
-        foto=data["foto"],
+        # foto=data["foto"],
     )
     serializer = PessoaSerializer(pessoa, many=False)
     return Response(serializer.data)

@@ -16,6 +16,9 @@ function EnderecoListScreen() {
     const enderecoDelete = useSelector((state) => state.enderecoDelete);
     const { success: successDelete } = enderecoDelete;
 
+    const enderecoCreate = useSelector((state) => state.enderecoCreate);
+    const { success: successCreate } = enderecoCreate;
+
     const userLogin = useSelector((state) => state.userLogin);
 
     const { userInfo } = userLogin;
@@ -27,7 +30,7 @@ function EnderecoListScreen() {
         } else {
             navigate(`/login`);
         }
-    }, [dispatch, navigate, successDelete, userInfo]);
+    }, [dispatch, navigate, successDelete, successCreate, userInfo]);
     const deleteHandler = (id) => {
         if (window.confirm("Tem certeza que deseja deletar esta endereço?")) {
             dispatch(deleteEndereco(id));

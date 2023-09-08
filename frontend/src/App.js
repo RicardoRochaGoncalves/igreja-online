@@ -17,6 +17,13 @@ import GeneroDetailsScreen from "./screens/DetailsScreens/GeneroDetailsScreen";
 import IgrejaDetailsScreen from "./screens/DetailsScreens/IgrejaDetailsScreen";
 import PessoaDetailsScreen from "./screens/DetailsScreens/PessoaDetailsScreen";
 import ProfissaoDetailsScreen from "./screens/DetailsScreens/ProfissaoDetailsScreen";
+import CategoriaCreateScreen from "./screens/CreateScreens/CategoriaCreateScreen";
+import EnderecoCreateScreen from "./screens/CreateScreens/EnderecoCreateScreen";
+import ProfissaoCreateScreen from "./screens/CreateScreens/ProfissaoCreateScreen";
+import EstadoCivilCreateScreen from "./screens/CreateScreens/EstadoCivilCreateScreen";
+import GeneroCreateScreen from "./screens/CreateScreens/GeneroCreateScreen";
+import IgrejaCreateScreen from "./screens/CreateScreens/IgrejaCreateScreen";
+import PessoaCreateScreen from "./screens/CreateScreens/PessoaCreateScreen";
 
 
 function App() {
@@ -29,7 +36,7 @@ function App() {
                         <Route path="/generos" element={<GeneroListScreen />} />
                         <Route path="/categorias" element={<CategoriaListScreen />} />
                         <Route path="/enderecos" element={<EnderecoListScreen />} />
-                        <Route path="/estadocivil" element={<EstadoCivilListScreen />} />
+                        <Route path="/estadoscivis" element={<EstadoCivilListScreen />} />
                         <Route path="/igrejas" element={<IgrejaListScreen />} />
                         <Route path="/pessoas" element={<PessoaListScreen />} />
                         <Route path="/profissoes" element={<ProfissaoListScreen />} />
@@ -41,6 +48,15 @@ function App() {
                         <Route path="/igrejas/:id" element={<IgrejaDetailsScreen />} />
                         <Route path="/pessoas/:id" element={<PessoaDetailsScreen />} />
                         <Route path="/profissoes/:id" element={<ProfissaoDetailsScreen />} />
+                        <Route path="/categorias/cadastro" element={<CategoriaCreateScreen />} />
+                        <Route path="/enderecos/cadastro" element={<EnderecoCreateScreen />} />
+                        <Route path="/profissoes/cadastro" element={<ProfissaoCreateScreen />} />
+                        <Route path="/estadoscivis/cadastro" element={<EstadoCivilCreateScreen />} />
+                        <Route path="/generos/cadastro" element={<GeneroCreateScreen />} />
+                        <Route path="/igrejas/cadastro" element={<IgrejaCreateScreen />} />
+                        <Route path="/pessoas/cadastro" element={<PessoaCreateScreen />} />
+
+
 
                     </Routes>
                 </Container>

@@ -19,9 +19,11 @@ function ListComponent({
                     <h2>{title}</h2>
                 </Col>
                 <Col className="text-end" xs={6} md={4}>
-                    <Button variant="primary" size="lg">
-                        Cadastrar
-                    </Button>
+                    <Link to={`/${linkUpdate}/cadastro`}>
+                        <Button variant="primary" size="lg">
+                            Cadastrar
+                        </Button>
+                    </Link>
                 </Col>
             </Row>
             {loading ? (

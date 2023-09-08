@@ -18,6 +18,9 @@ function EstadoCivilListScreen() {
 
     const estadoCivilDelete = useSelector((state) => state.estadoCivilDelete);
     const { success: successDelete } = estadoCivilDelete;
+    
+    const estadoCivilCreate = useSelector((state) => state.estadoCivilCreate);
+    const { success: successCreate } = estadoCivilCreate;
 
     const userLogin = useSelector((state) => state.userLogin);
 
@@ -30,7 +33,7 @@ function EstadoCivilListScreen() {
         } else {
             navigate(`/login`);
         }
-    }, [dispatch, navigate, successDelete, userInfo]);
+    }, [dispatch, navigate, successDelete, successCreate, userInfo]);
     const deleteHandler = (id) => {
         if (
             window.confirm("Tem certeza que deseja deletar este estado Civil?")

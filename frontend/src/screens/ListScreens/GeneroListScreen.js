@@ -16,6 +16,9 @@ function GeneroListScreen() {
     const generoDelete = useSelector((state) => state.generoDelete);
     const { success: successDelete } = generoDelete;
 
+    const generoCreate = useSelector((state) => state.generoCreate);
+    const { success: successCreate } = generoCreate;
+
     const userLogin = useSelector((state) => state.userLogin);
 
     const { userInfo } = userLogin;
@@ -27,7 +30,7 @@ function GeneroListScreen() {
         } else {
             navigate(`/login`);
         }
-    }, [dispatch, navigate, successDelete, userInfo]);
+    }, [dispatch, navigate, successDelete, successCreate, userInfo]);
     const deleteHandler = (id) => {
         if (window.confirm("Tem certeza que deseja deletar este genero?")) {
             dispatch(deleteGenero(id));

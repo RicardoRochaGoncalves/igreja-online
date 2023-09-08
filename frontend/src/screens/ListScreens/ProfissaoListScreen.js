@@ -16,6 +16,9 @@ function ProfissaoListScreen() {
     const profissaoDelete = useSelector((state) => state.profissaoDelete);
     const { success: successDelete } = profissaoDelete;
 
+    const profissaoCreate = useSelector((state) => state.profissaoCreate);
+    const { success: successCreate } = profissaoCreate;
+
     const userLogin = useSelector((state) => state.userLogin);
 
     const { userInfo } = userLogin;
@@ -27,7 +30,7 @@ function ProfissaoListScreen() {
         } else {
             navigate(`/login`);
         }
-    }, [dispatch, navigate, successDelete, userInfo]);
+    }, [dispatch, navigate, successDelete, successCreate, userInfo]);
     const deleteHandler = (id) => {
         if (window.confirm("Tem certeza que deseja deletar esta profissao?")) {
             dispatch(deleteProfissao(id));

@@ -32,7 +32,6 @@ function EstadoCivilDetailsScreen() {
             updateEstadoCivil({
                 id: id,
                 nome: editedNome,
-
             })
         );
         setIsEditing(false);
