@@ -63,12 +63,7 @@ class GeneroSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class PessoaSerializer(serializers.ModelSerializer):
-    '''genero = serializers.StringRelatedField()  # Usará o campo nome do modelo Genero
-    categoria = serializers.StringRelatedField()  # Usará o campo nome do modelo Categoria
-    profissao = serializers.StringRelatedField()  # Usará o campo nome do modelo Profissao
-    estadoCivil = serializers.StringRelatedField()  # Usará o campo nome do modelo EstadoCivil
-    endereco = serializers.StringRelatedField()  # Usará o serializer EnderecoSerializer para mostrar detalhes do endereço '''
-    class Meta:
+   class Meta:
         model = Pessoa
         fields = '__all__'
 

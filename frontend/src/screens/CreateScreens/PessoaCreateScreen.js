@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { createPessoa } from "../../actions/pessoaActions";
 import DetailsComponent from "../../components/DetailsComponent";
 import { useNavigate } from "react-router-dom";
+import DatePickerComponent from "../../components/DatePickerComponent";
 
 function PessoaCreateScreen() {
     const dispatch = useDispatch();
@@ -22,6 +23,10 @@ function PessoaCreateScreen() {
     const [editedAtivo, setEditedAtivo] = useState("");
     const [editedBatizado, setEditedBatizado] = useState("");
     const [editedObservacao, setEditedObservacao] = useState("");
+
+    const handleDateChange = (date) => {
+        setEditedDataNascimento(date);
+    };
 
     const handleSaveClick = () => {
         dispatch(
@@ -56,7 +61,12 @@ function PessoaCreateScreen() {
             label: "Data de Nascimento",
             placeholder: "Data de Nascimento",
             value: editedDataNascimento,
-            onChange: (e) => setEditedDataNascimento(e.target.value),
+            component: (
+                <DatePickerComponent
+                    dataSelecionada={editedDataNascimento} 
+                    onChange={handleDateChange}
+                />
+            ),
         },
         {
             label: "Endereço",

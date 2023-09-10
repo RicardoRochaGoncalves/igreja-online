@@ -5,6 +5,8 @@ import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 import DetailsComponent from "../../components/DetailsComponent";
 import { useParams } from "react-router-dom";
+import DatePickerComponent from "../../components/DatePickerComponent";
+
 
 function PessoaDetailsScreen() {
     const { id } = useParams();
@@ -37,7 +39,7 @@ function PessoaDetailsScreen() {
     const handleEditClick = () => {
         setIsEditing(true);
         setEditedNome(pessoa.nome);
-        setEditedDataNascimento(pessoa.dataNascimento);
+        setEditedDataNascimento(new Date(pessoa.dataNascimento));
         setEditedEndereco(pessoa.endereco);
         setEditedCategoria(pessoa.categoria);
         setEditedProfissao(pessoa.profissao);
@@ -49,6 +51,10 @@ function PessoaDetailsScreen() {
         setEditedAtivo(pessoa.ativo);
         setEditedBatizado(pessoa.batizado);
         setEditedObservacao(pessoa.observacao);
+    };
+
+    const handleDateChange = (date) => {
+        setEditedDataNascimento(date);
     };
 
     const handleSaveClick = () => {
@@ -84,9 +90,14 @@ function PessoaDetailsScreen() {
         {
             label: "Data de Nascimento",
             placeholder: "Data de Nascimento",
-            value: editedDataNascimento,
+            value: isEditing ? editedDataNascimento : pessoa.dataNascimento,
             initialValue: pessoa.dataNascimento,
-            onChange: (e) => setEditedDataNascimento(e.target.value),
+            component: (
+                <DatePickerComponent
+                    dataSelecionada={editedDataNascimento} 
+                    onChange={handleDateChange}
+                />
+            ),
         },
         {
             label: "Endereço",
@@ -175,7 +186,7 @@ function PessoaDetailsScreen() {
                 <Message variant="danger">{error}</Message>
             ) : (
                 <DetailsComponent
-                    title="pessoa"
+                    title="Pessoa"
                     isEditing={isEditing}
                     handleEditClick={handleEditClick}
                     handleSaveClick={handleSaveClick}

@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { createIgreja } from "../../actions/igrejaActions";
 import DetailsComponent from "../../components/DetailsComponent";
 import { useNavigate } from "react-router-dom";
+import DatePickerComponent from "../../components/DatePickerComponent";
+
 
 function IgrejaCreateScreen() {
     const dispatch = useDispatch();
@@ -15,6 +17,10 @@ function IgrejaCreateScreen() {
     const [editedDataCadastro, setEditedDataCadastro] = useState("");
     const [editedTelefone, setEditedTelefone] = useState("");
     const [editedigreja, setEditedigreja] = useState("");
+
+    const handleDateChange = (date) => {
+        setEditedDataCadastro(date);
+    };
 
     const handleSaveClick = () => {
         dispatch(
@@ -55,7 +61,11 @@ function IgrejaCreateScreen() {
             label: "Data de Cadastro",
             placeholder: "Data de Cadastro",
             value: editedDataCadastro,
-            onChange: (e) => setEditedDataCadastro(e.target.value),
+            component: ( 
+                <DatePickerComponent
+                    dataSelecionada={editedDataCadastro}
+                    onChange={handleDateChange}
+                />),
         },
         {
             label: "Telefone",

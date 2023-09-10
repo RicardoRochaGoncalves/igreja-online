@@ -31,12 +31,17 @@ function DetailsComponent({
         {fields.map((field) => (
           <Form.Group className="mb-3" key={field.label}>
             <Form.Label>{field.label}</Form.Label>
+            {field.component ? ( // Verifique se o campo tem um componente personalizado
+            <div>
+              {field.component}
+              </div>
+            ) : (
             <Form.Control
               placeholder={field.placeholder}
               disabled={!isEditing}
               value={isEditing ? field.value : field.initialValue}
               onChange={field.onChange}
-            />
+            />)}
           </Form.Group>
         ))}
       </FormDetailsContainer>
