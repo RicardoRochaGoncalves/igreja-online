@@ -1,13 +1,34 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { createPessoa } from "../../actions/pessoaActions";
 import DetailsComponent from "../../components/DetailsComponent";
 import { useNavigate } from "react-router-dom";
 import DatePickerComponent from "../../components/DatePickerComponent";
+import SelectFieldComponent from "../../components/SelectFieldComponent";
+import { listCategorias } from "../../actions/categoriaActions";
+import { listProfissoes } from "../../actions/profissaoActions";
+import { listEstadosCivis } from "../../actions/estadoCivilActions";
+import { listGeneros } from "../../actions/generoActions";
+import { listEnderecos } from "../../actions/enderecoActions";
 
 function PessoaCreateScreen() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const categoriaList = useSelector((state) => state.categoriaList);
+    const { categorias } = categoriaList;
+
+    const profissaoList = useSelector((state) => state.profissaoList);
+    const { profissoes } = profissaoList;
+
+    const estadoCivilList = useSelector((state) => state.estadoCivilList);
+    const { estadosCivis } = estadoCivilList;
+
+    const generoList = useSelector((state) => state.generoList);
+    const { generos } = generoList;
+
+    const enderecoList = useSelector((state) => state.enderecoList);
+    const { enderecos } = enderecoList;
 
     const [isEditing, setIsEditing] = useState(true); // Inicialmente, permita a edição
     const [editedNome, setEditedNome] = useState("");
@@ -23,6 +44,14 @@ function PessoaCreateScreen() {
     const [editedAtivo, setEditedAtivo] = useState("");
     const [editedBatizado, setEditedBatizado] = useState("");
     const [editedObservacao, setEditedObservacao] = useState("");
+
+    useEffect(() => {
+        dispatch(listCategorias());
+        dispatch(listProfissoes());
+        dispatch(listEstadosCivis());
+        dispatch(listGeneros());
+        dispatch(listEnderecos());
+    }, [dispatch]);
 
     const handleDateChange = (date) => {
         setEditedDataNascimento(date);
@@ -63,7 +92,7 @@ function PessoaCreateScreen() {
             value: editedDataNascimento,
             component: (
                 <DatePickerComponent
-                    dataSelecionada={editedDataNascimento} 
+                    dataSelecionada={editedDataNascimento}
                     onChange={handleDateChange}
                 />
             ),
@@ -71,26 +100,59 @@ function PessoaCreateScreen() {
         {
             label: "Endereço",
             placeholder: "Endereço",
-            value: editedEndereco,
-            onChange: (e) => setEditedEndereco(e.target.value),
+            component: (
+                <SelectFieldComponent
+                    options={[
+                        { id: "", nome: "Selecione um endereço" },
+                        ...enderecos,
+                    ]}
+                    value={editedEndereco}
+                    onChange={(e) => setEditedEndereco(e.target.value)}
+                    isEditing={isEditing}
+                />
+            ),
         },
         {
             label: "Categoria",
-            placeholder: "Categoria",
-            value: editedCategoria,
-            onChange: (e) => setEditedCategoria(e.target.value),
+            component: (
+                <SelectFieldComponent
+                    options={[
+                        { id: "", nome: "Selecione uma categoria" },
+                        ...categorias,
+                    ]}
+                    value={editedCategoria}
+                    onChange={(e) => setEditedCategoria(e.target.value)}
+                    isEditing={isEditing}
+                />
+            ),
         },
         {
             label: "Profissão",
-            placeholder: "Profissão",
-            value: editedProfissao,
-            onChange: (e) => setEditedProfissao(e.target.value),
+            component: (
+                <SelectFieldComponent
+                    options={[
+                        { id: "", nome: "Selecione uma profissão" },
+                        ...profissoes,
+                    ]}
+                    value={editedProfissao}
+                    onChange={(e) => setEditedProfissao(e.target.value)}
+                    isEditing={isEditing}
+                />
+            ),
         },
         {
             label: "Estado Civil",
-            placeholder: "Estado Civil",
-            value: editedEstadoCivil,
-            onChange: (e) => setEditedEstadoCivil(e.target.value),
+            component: (
+                <SelectFieldComponent
+                    options={[
+                        { id: "", nome: "Selecione um estado civil" },
+                        ...estadosCivis,
+                    ]}
+                    value={editedEstadoCivil}
+                    onChange={(e) => setEditedEstadoCivil(e.target.value)}
+                    isEditing={isEditing}
+                />
+            ),
         },
         {
             label: "RG",
@@ -112,9 +174,17 @@ function PessoaCreateScreen() {
         },
         {
             label: "Genero",
-            placeholder: "Genero",
-            value: editedGenero,
-            onChange: (e) => setEditedGenero(e.target.value),
+            component: (
+                <SelectFieldComponent
+                    options={[
+                        { id: "", nome: "Selecione um genero" },
+                        ...generos,
+                    ]}
+                    value={editedGenero}
+                    onChange={(e) => setEditedGenero(e.target.value)}
+                    isEditing={isEditing}
+                />
+            ),
         },
         {
             label: "Ativo",

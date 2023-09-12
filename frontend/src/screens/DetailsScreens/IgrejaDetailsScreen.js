@@ -5,6 +5,7 @@ import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 import DetailsComponent from "../../components/DetailsComponent";
 import { useParams } from "react-router-dom";
+import DatePickerComponent from "../../components/DatePickerComponent";
 
 function IgrejaDetailsScreen() {
     const { id } = useParams();
@@ -22,16 +23,23 @@ function IgrejaDetailsScreen() {
 
     useEffect(() => {
         dispatch(listIgrejaDetails(id));
-    }, [dispatch, id]);
+        if (igreja.dataCadastro) {
+            setEditedDataCadastro(new Date(igreja.dataCadastro));
+        }
+    }, [dispatch, id, igreja.dataCadastro]);
 
     const handleEditClick = () => {
         setIsEditing(true);
         setEditedNomeFantasia(igreja.nomeFantasia);
         setEditedRazaoSocial(igreja.razaoSocial);
         setEditedCnpj(igreja.CNPJ);
-        setEditedDataCadastro(igreja.dataCadastro);
+        setEditedDataCadastro(new Date(igreja.dataCadastro));
         setEditedTelefone(igreja.telefone);
         setEditedEndereco(igreja.endereco);
+    };
+
+    const handleDateChange = () => {
+
     };
 
     const handleSaveClick = () => {
@@ -76,7 +84,12 @@ function IgrejaDetailsScreen() {
             placeholder: "Data de Cadastro",
             value: editedDataCadastro,
             initialValue: igreja.dataCadastro,
-            onChange: (e) => setEditedDataCadastro(e.target.value),
+            component: (
+                <DatePickerComponent
+                    dataSelecionada={editedDataCadastro}
+                    onChange={handleDateChange}
+                />
+            )
         },
         {
             label: "Telefone",
@@ -102,7 +115,7 @@ function IgrejaDetailsScreen() {
                 <Message variant="danger">{error}</Message>
             ) : (
                 <DetailsComponent
-                    title="igreja"
+                    title="Igreja"
                     isEditing={isEditing}
                     handleEditClick={handleEditClick}
                     handleSaveClick={handleSaveClick}

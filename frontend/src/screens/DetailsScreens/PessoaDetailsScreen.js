@@ -6,6 +6,12 @@ import Message from "../../components/Message";
 import DetailsComponent from "../../components/DetailsComponent";
 import { useParams } from "react-router-dom";
 import DatePickerComponent from "../../components/DatePickerComponent";
+import { listCategorias } from "../../actions/categoriaActions";
+import { listProfissoes } from "../../actions/profissaoActions";
+import { listEstadosCivis } from "../../actions/estadoCivilActions";
+import { listGeneros } from "../../actions/generoActions";
+import { listEnderecos } from "../../actions/enderecoActions";
+import SelectFieldComponent from "../../components/SelectFieldComponent";
 
 
 function PessoaDetailsScreen() {
@@ -15,7 +21,21 @@ function PessoaDetailsScreen() {
         (state) => state.pessoaDetails
     );
     const { loading, error, pessoa } = pessoaDetailsState;
+    const categoriaList = useSelector((state) => state.categoriaList);
+    const { categorias } = categoriaList;
 
+    const profissaoList = useSelector((state) => state.profissaoList);
+    const { profissoes } = profissaoList;
+
+    const estadoCivilList = useSelector((state) => state.estadoCivilList);
+    const { estadosCivis } = estadoCivilList;
+
+    const generoList = useSelector((state) => state.generoList);
+    const { generos } = generoList;
+
+    const enderecoList = useSelector((state) => state.enderecoList);
+    const { enderecos } = enderecoList;
+    
     const [isEditing, setIsEditing] = useState(false);
     const [editedNome, setEditedNome] = useState("");
     const [editedDataNascimento, setEditedDataNascimento] = useState("");
@@ -34,7 +54,16 @@ function PessoaDetailsScreen() {
 
     useEffect(() => {
         dispatch(listPessoaDetails(id));
-    }, [dispatch, id]);
+        dispatch(listCategorias());
+        dispatch(listProfissoes());
+        dispatch(listEstadosCivis());
+        dispatch(listGeneros());
+        dispatch(listEnderecos());
+
+        if (pessoa.dataNascimento) {
+            setEditedDataNascimento(new Date(pessoa.dataNascimento));
+        }
+    }, [dispatch, id, pessoa.dataNascimento]);
 
     const handleEditClick = () => {
         setIsEditing(true);
@@ -54,7 +83,9 @@ function PessoaDetailsScreen() {
     };
 
     const handleDateChange = (date) => {
-        setEditedDataNascimento(date);
+        if (isEditing){
+            setEditedDataNascimento(date);
+        }
     };
 
     const handleSaveClick = () => {
@@ -89,9 +120,6 @@ function PessoaDetailsScreen() {
         },
         {
             label: "Data de Nascimento",
-            placeholder: "Data de Nascimento",
-            value: isEditing ? editedDataNascimento : pessoa.dataNascimento,
-            initialValue: pessoa.dataNascimento,
             component: (
                 <DatePickerComponent
                     dataSelecionada={editedDataNascimento} 
@@ -101,31 +129,51 @@ function PessoaDetailsScreen() {
         },
         {
             label: "Endereço",
-            placeholder: "Endereço",
-            value: editedEndereco,
-            initialValue: pessoa.endereco,
-            onChange: (e) => setEditedEndereco(e.target.value),
+            component: (
+                <SelectFieldComponent
+                    options={enderecos}
+                    initialValue={pessoa.endereco}
+                    value={editedEndereco}
+                    onChange={(e) => setEditedEndereco(e.target.value)}
+                    isEditing={isEditing}
+                />
+            ),
         },
         {
             label: "Categoria",
-            placeholder: "Categoria",
-            value: editedCategoria,
-            initialValue: pessoa.categoria,
-            onChange: (e) => setEditedCategoria(e.target.value),
+            component: (
+                <SelectFieldComponent
+                    options={categorias}
+                    initialValue={pessoa.categoria}
+                    value={editedCategoria}
+                    onChange={(e) => setEditedCategoria(e.target.value)}
+                    isEditing={isEditing}
+                />
+            ),
         },
         {
             label: "Profissão",
-            placeholder: "Profissão",
-            value: editedProfissao,
-            initialValue: pessoa.profissao,
-            onChange: (e) => setEditedProfissao(e.target.value),
+            component: (
+                <SelectFieldComponent
+                    options={profissoes}
+                    initialValue={pessoa.profissao}
+                    value={editedProfissao}
+                    onChange={(e) => setEditedProfissao(e.target.value)}
+                    isEditing={isEditing}
+                />
+            ),
         },
         {
             label: "Estado Civil",
-            placeholder: "Estado Civil",
-            value: editedEstadoCivil,
-            initialValue: pessoa.estadoCivil,
-            onChange: (e) => setEditedEstadoCivil(e.target.value),
+            component: (
+                <SelectFieldComponent
+                    options={estadosCivis}
+                    initialValue={pessoa.estadoCivil}
+                    value={editedEstadoCivil}
+                    onChange={(e) => setEditedEstadoCivil(e.target.value)}
+                    isEditing={isEditing}
+                />
+            ),
         },
         {
             label: "RG",
@@ -150,10 +198,15 @@ function PessoaDetailsScreen() {
         },
         {
             label: "Genero",
-            placeholder: "Genero",
-            value: editedGenero,
-            initialValue: pessoa.genero,
-            onChange: (e) => setEditedGenero(e.target.value),
+            component: (
+                <SelectFieldComponent
+                    options={generos}
+                    initialValue={pessoa.genero}
+                    value={editedGenero}
+                    onChange={(e) => setEditedGenero(e.target.value)}
+                    isEditing={isEditing}
+                />
+            ),
         },
         {
             label: "Ativo",
