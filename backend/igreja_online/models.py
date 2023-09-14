@@ -22,6 +22,13 @@ class Igreja(models.Model):
     telefone = models.CharField(max_length=200, null=True, blank=True)
     endereco = models.ForeignKey(
         Endereco, on_delete=models.SET_NULL, null=True)
+    cep = models.CharField(max_length=10, null=True, blank=True)
+    logradouro = models.CharField(max_length=255, null=True, blank=True)
+    numero = models.CharField(max_length=20, null=True, blank=True)
+    complemento = models.CharField(max_length=255, null=True, blank=True)
+    bairro = models.CharField(max_length=100, null=True, blank=True)
+    cidade = models.CharField(max_length=100, null=True, blank=True)
+    estado = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
         return self.nomeFantasia
@@ -69,6 +76,13 @@ class Pessoa(models.Model):
     batizado = models.BooleanField(default=True)
     observacao = models.CharField(max_length=200, null=True, blank=True)
     foto = models.ImageField(null=True, blank=True)
+    cep = models.CharField(max_length=10, null=True, blank=True)
+    logradouro = models.CharField(max_length=255, null=True, blank=True)
+    numero = models.CharField(max_length=20, null=True, blank=True)
+    complemento = models.CharField(max_length=255, null=True, blank=True)
+    bairro = models.CharField(max_length=100, null=True, blank=True)
+    cidade = models.CharField(max_length=100, null=True, blank=True)
+    estado = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
         return self.nome

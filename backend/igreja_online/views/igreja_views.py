@@ -49,6 +49,13 @@ def createIgreja(request):
         dataCadastro=data["dataCadastro"],
         telefone=data["telefone"],
         endereco=endereco,
+        cep=data["cep"],
+        logradouro=data["logradouro"],
+        numero=data["numero"],
+        complemento=data["complemento"],
+        bairro=data["bairro"],
+        cidade=data["cidade"],
+        estado=data["estado"],
     )
     serializer = IgrejaSerializer(igreja, many=False)
     return Response(serializer.data)
@@ -73,4 +80,3 @@ def deleteIgreja(request, pk):
     igreja = Igreja.objects.get(id=pk)
     igreja.delete()
     return Response("Igreja deletada com sucesso!")
-
