@@ -10,6 +10,9 @@ import { listProfissoes } from "../../actions/profissaoActions";
 import { listEstadosCivis } from "../../actions/estadoCivilActions";
 import { listGeneros } from "../../actions/generoActions";
 import { listEnderecos } from "../../actions/enderecoActions";
+import CepField from "../../components/CepField";
+import { fetchCep } from "../../actions/cepActions";
+
 
 function PessoaCreateScreen() {
     const dispatch = useDispatch();
@@ -30,6 +33,9 @@ function PessoaCreateScreen() {
     const enderecoList = useSelector((state) => state.enderecoList);
     const { enderecos } = enderecoList;
 
+    const cepFetch = useSelector((state) => state.cepFetch);
+    const { cepFetched } = cepFetch;
+
     const [isEditing, setIsEditing] = useState(true); // Inicialmente, permita a edição
     const [editedNome, setEditedNome] = useState("");
     const [editedDataNascimento, setEditedDataNascimento] = useState("");
@@ -44,6 +50,14 @@ function PessoaCreateScreen() {
     const [editedAtivo, setEditedAtivo] = useState("");
     const [editedBatizado, setEditedBatizado] = useState("");
     const [editedObservacao, setEditedObservacao] = useState("");
+    const [editedCEP, setEditedCEP] = useState("");
+    const [editedLogradouro, setEditedLogradouro] = useState("");
+    const [editedNumero, setEditedNumero] = useState("");
+    const [editedComplemento, setEditedComplemento] = useState("");
+    const [editedBairro, setEditedBairro] = useState("");
+    const [editedCidade, setEditedCidade] = useState("");
+    const [editedEstado, setEditedEstado] = useState("");
+
 
     useEffect(() => {
         dispatch(listCategorias());
@@ -51,10 +65,21 @@ function PessoaCreateScreen() {
         dispatch(listEstadosCivis());
         dispatch(listGeneros());
         dispatch(listEnderecos());
-    }, [dispatch]);
+        if (cepFetched) {
+            setEditedLogradouro(cepFetched.logradouro || "");
+            setEditedBairro(cepFetched.bairro || "");
+            setEditedCidade(cepFetched.localidade || "");
+            setEditedEstado(cepFetched.uf || "");
+        }
+    }, [dispatch, cepFetched]);
 
     const handleDateChange = (date) => {
         setEditedDataNascimento(date);
+    };
+
+    const handleCepButtonClick = () => {
+        dispatch(fetchCep(editedCEP));
+        console.log(cepFetched);
     };
 
     const handleSaveClick = () => {
@@ -73,6 +98,13 @@ function PessoaCreateScreen() {
                 ativo: editedAtivo,
                 batizado: editedBatizado,
                 observacao: editedObservacao,
+                cep: editedCEP,
+                logradouro: editedLogradouro,
+                numero: editedNumero,
+                complemento: editedComplemento,
+                bairro: editedBairro,
+                cidade: editedCidade,
+                estado: editedEstado,
             })
         );
 
@@ -204,6 +236,54 @@ function PessoaCreateScreen() {
             value: editedObservacao,
             onChange: (e) => setEditedObservacao(e.target.value),
         },
+        {
+            label: "CEP",
+            component: (
+                <CepField
+                    value={editedCEP}
+                    onChange={(e) => setEditedCEP(e.target.value)}
+                    onButtonClick={handleCepButtonClick}
+                    isEditing={isEditing}
+                />
+            ),
+        },
+        {
+            label: "Logradouro",
+            placeholder: "Logradouro",
+            value: editedLogradouro,
+            onChange: (e) => setEditedLogradouro(e.target.value),
+        },
+        {
+            label: "Numero",
+            placeholder: "Numero",
+            value: editedNumero,
+            onChange: (e) => setEditedNumero(e.target.value),
+        },
+        {
+            label: "Complemento",
+            placeholder: "Complemento",
+            value: editedComplemento,
+            onChange: (e) => setEditedComplemento(e.target.value),
+        },
+        {
+            label: "Bairro",
+            placeholder: "Bairro",
+            value: editedBairro,
+            onChange: (e) => setEditedBairro(e.target.value),
+        },
+        {
+            label: "Cidade",
+            placeholder: "Cidade",
+            value: editedCidade,
+            onChange: (e) => setEditedCidade(e.target.value),
+        },
+        {
+            label: "Estado",
+            placeholder: "Estado",
+            value: editedEstado,
+            onChange: (e) => setEditedEstado(e.target.value),
+        },
+
     ];
 
     return (

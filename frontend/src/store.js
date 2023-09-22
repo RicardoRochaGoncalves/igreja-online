@@ -50,6 +50,7 @@ import {
     profissaoUpdateReducer,
     profissaoCreateReducer,
 } from "./reducers/profissaoReducers";
+import { cepFectchReducer } from "./reducers/cepReducers";
 
 const reducer = combineReducers({
     generoList: generoListReducer,
@@ -88,6 +89,7 @@ const reducer = combineReducers({
     igrejaCreate: igrejaCreateReducer,
     pessoaCreate: pessoaCreateReducer,
     profissaoCreate: profissaoCreateReducer,
+    cepFetch: cepFectchReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
