@@ -31,7 +31,7 @@ export const listEstadosCivis = () => async (dispatch, getState) => {
                 Authorization: `Bearer ${userInfo.token}`,
             },
         };
-        const { data } = await axios.get(`/api/estadoscivis`, config);
+        const { data } = await axios.get(`/api/estadoscivis/`, config);
         dispatch({ type: ESTADO_CIVIL_LIST_SUCCESS, payload: data });
     } catch (error) {
         dispatch({

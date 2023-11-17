@@ -30,7 +30,7 @@ export const listIgrejas = () => async (dispatch, getState) => {
                 Authorization: `Bearer ${userInfo.token}`,
             },
         };
-        const { data } = await axios.get(`/api/igrejas`, config);
+        const { data } = await axios.get(`/api/igrejas/`, config);
         dispatch({ type: IGREJA_LIST_SUCCESS, payload: data });
     } catch (error) {
         dispatch({
