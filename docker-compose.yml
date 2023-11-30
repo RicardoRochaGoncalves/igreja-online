@@ -4,20 +4,24 @@ services:
   backend:
     build: 
       context: ./backend
+    container_name: backend_container
     command: gunicorn backend.wsgi --bind 0.0.0.0:8000
     ports:
       - "8000:8000"
     depends_on:
       - db
+
   frontend:
     build: 
       context: ./frontend
+    container_name: frontend_container
     volumes:
       - react_build:/react/build
 
   nginx:
     build:
       context: ./nginx
+    container_name: nginx_container
     ports:
       - "80:80"
     volumes:
@@ -28,10 +32,9 @@ services:
 
   db:
     image: postgres:latest
-    environment:
-      - POSTGRES_USER=dbadmin
-      - POSTGRES_PASSWORD=.9KGE*2*AKywLttqagu*
-      - POSTGRES_DB=db_igreja_online
+    container_name: db_container
+    env_file:
+      - docker_db.env
     ports:
       - "5432:5432"
     volumes:
