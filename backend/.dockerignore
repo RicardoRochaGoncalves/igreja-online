@@ -1,0 +1,31 @@
+# Ignore dependências Python
+__pycache__
+*.pyc
+
+# Ignore arquivos de log
+*.log
+
+# Ignore diretórios específicos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Ignore configurações de IDEs/editores
+.vscode
+.idea
+
+# Ignore arquivos temporários do sistema
+.tmp
+.temp
+
+# Ignore arquivos de controle de versão
+.git
+.gitignore
+
+# Ignore arquivos de cache
+.cache
+coverage
+*.cover
+
+# Ignore configurações de contêineres
+docker-compose.override.yml
+Dockerfile.*
