@@ -85,6 +85,20 @@ import {
     versiculoListReducer,
     versiculoUpdateReducer,
 } from "./reducers/versiculoReducers";
+import {
+    categoriaAgendaCreateReducer,
+    categoriaAgendaDeleteReducer,
+    categoriaAgendaDetailsReducer,
+    categoriaAgendaListReducer,
+    categoriaAgendaUpdateReducer,
+} from "./reducers/categoriaAgendaReducers";
+import {
+    agendaCreateReducer,
+    agendaDeleteReducer,
+    agendaDetailsReducer,
+    agendaListReducer,
+    agendaUpdateReducer,
+} from "./reducers/agendaReducers";
 import { cepFetchReducer } from "./reducers/cepReducers";
 
 const rootReducer = combineReducers({
@@ -150,6 +164,16 @@ const rootReducer = combineReducers({
     versiculoCreate: versiculoCreateReducer,
     versiculoUpdate: versiculoUpdateReducer,
     versiculoDelete: versiculoDeleteReducer,
+    categoriaAgendaList: categoriaAgendaListReducer,
+    categoriaAgendaDetails: categoriaAgendaDetailsReducer,
+    categoriaAgendaCreate: categoriaAgendaCreateReducer,
+    categoriaAgendaUpdate: categoriaAgendaUpdateReducer,
+    categoriaAgendaDelete: categoriaAgendaDeleteReducer,
+    agendaList: agendaListReducer,
+    agendaDetails: agendaDetailsReducer,
+    agendaCreate: agendaCreateReducer,
+    agendaUpdate: agendaUpdateReducer,
+    agendaDelete: agendaDeleteReducer,
     cepFetch: cepFetchReducer,
 });
 

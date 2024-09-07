@@ -40,6 +40,12 @@ import CategoriaNoticiaCreatePage from "./pages/AreaRestrita/CategoriaNoticia/Ca
 import CarrosselImagemCreatePage from "./pages/AreaRestrita/CarrosselImagem/CarrosselImagemCreatePage";
 import PessoaCreatePage from "./pages/AreaRestrita/Pessoa/PessoaCreatePage";
 import IgrejaCreatePage from "./pages/AreaRestrita/Igreja/IgrejaCreatePage";
+import CategoriaAgendaListPage from "./pages/AreaRestrita/CategoriaAgenda/CategoriaAgendaListPage";
+import AgendaListPage from "./pages/AreaRestrita/Agenda/AgendaListPage";
+import CategoriaAgendaCreatePage from "./pages/AreaRestrita/CategoriaAgenda/CategoriaAgendaCreatePage";
+import AgendaCreatePage from "./pages/AreaRestrita/Agenda/AgendaCreatePage";
+import AgendaDetailsPage from "./pages/AreaRestrita/Agenda/AgendaDetailsPage";
+import CategoriaAgendaDetailsPage from "./pages/AreaRestrita/CategoriaAgenda/CategoriaAgendaDetailsPage";
 import HomePage from "./pages/Public/HomePage/HomePage";
 
 
@@ -90,6 +96,12 @@ function App() {
                         <Route path="/carrosselimagens/cadastro" element={<CarrosselImagemCreatePage />} />
                         <Route path="/pessoas/cadastro" element={<PessoaCreatePage />} />
                         <Route path="/igrejas/cadastro" element={<IgrejaCreatePage />} />
+                        <Route path="/categoriasagendas" element={<CategoriaAgendaListPage />} />
+                        <Route path="/agendas" element={<AgendaListPage />} />
+                        <Route path="/categoriasagendas/cadastro" element={<CategoriaAgendaCreatePage />} />
+                        <Route path="/agendas/cadastro" element={<AgendaCreatePage />} />
+                        <Route path="/agendas/:id" element={<AgendaDetailsPage />} />
+                        <Route path="/categoriasagendas/:id" element={<CategoriaAgendaDetailsPage />} />
                     </Routes>
                 </Container>
             </main>
